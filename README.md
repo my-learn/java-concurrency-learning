@@ -1,3 +1,12 @@
-# My Awesome Book
+# 说明
 
-This file file serves as your book's preface, a great place to describe your book's content and ideas.
+该系列文章，参考以下文章和书籍，这里一并声明，如有侵权或异议，请及时联系本人。
+
+* 海 子的博客  [http://www.cnblogs.com/dolphin0520/p/3910667.html](http://www.cnblogs.com/dolphin0520/p/3910667.html)
+
+* 圣骑士Wind的博客 [http://www.cnblogs.com/mengdd/archive/2013/02/16/2913628.html](http://www.cnblogs.com/mengdd/archive/2013/02/16/2913628.html)
+
+* 《Java 7并发编程实战手册》
+
+
+
