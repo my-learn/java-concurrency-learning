@@ -20,7 +20,7 @@
     
     * [1.8 线程间的通信-wait及notify方法](chapter1/1-8.md)
 
-* [第2章 多线程同步](chapter2)
+* [第2章 多线程同步](chapter2/README.md)
 
     * [2.1 synchronized](chapter2/2-1.md)
     
