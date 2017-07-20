@@ -26,7 +26,7 @@
     
     * [2.2 Lock](chapter2/2-2.md)
     
-    * [2.3 锁的相关概念](chapter2/2-3.md)
+    * [2.3 锁的相关概念介绍](chapter2/2-3.md)
 
 * [第3章 线程同步辅助类](chapter3/README.md)
 
