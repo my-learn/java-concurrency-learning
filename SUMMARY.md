@@ -55,6 +55,8 @@
     * [4.4 ScheduledExecutorService接口](chapter4/4-4.md)
     
     * [4.5 Executors类](chapter4/4-5.md)
+    
+    * [4.6 ThreadPoolExecutor ](chapter4/4-6.md)
 
 
 
