@@ -28,7 +28,6 @@
     
     * [2.3 锁的相关概念](chapter2/2-3.md)
 
-
 * [第3章 线程同步辅助类](chapter3/README.md)
 
     * [3.1 信号量Semaphore](chapter3/3-1.md)
