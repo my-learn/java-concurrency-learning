@@ -86,7 +86,7 @@
     
     * [6.3 Servlet的多线程同步问题](chapter6/6-3.md)
     
-    * [6.4 Volatile](chapter6/6-4.md)
+    * [6.4 volatile](chapter6/6-4.md)
 
 
 
