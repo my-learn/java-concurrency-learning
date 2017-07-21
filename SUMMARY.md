@@ -85,6 +85,8 @@
     * [6.2 Vector真的是安全的吗？](chapter6/6-2.md)
     
     * [6.3 Servlet的多线程同步问题](chapter6/6-3.md)
+    
+    * [6.4 Volatile](chapter6/6-4.md)
 
 
 
