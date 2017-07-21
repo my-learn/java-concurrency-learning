@@ -67,6 +67,8 @@
 * [第6章 实用篇](chapter6.md)
 
     * [6.1 时间工具类TimeUnit](chapter6/6-1.md)
+    
+    * [6.2 Vector真的是安全的吗？](chapter6/6-2.md)
 
 
 
