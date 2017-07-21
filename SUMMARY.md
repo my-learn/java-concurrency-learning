@@ -65,6 +65,8 @@
 * [第5章 并发集合](chapter5.md)
 
     * [5.1 简介](chapter5/5-1.md)
+    
+    * [5.2 阻塞队列](chapter5/5-2.md)
 
 * [第6章 实用篇](chapter6.md)
 
