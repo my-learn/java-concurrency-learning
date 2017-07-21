@@ -64,6 +64,8 @@
 
 * [第5章 并发集合](chapter5.md)
 
+    * [5.1 简介](chapter5/5-1.md)
+
 * [第6章 实用篇](chapter6.md)
 
     * [6.1 时间工具类TimeUnit](chapter6/6-1.md)
