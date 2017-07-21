@@ -34,15 +34,15 @@
 
 * [第3章 线程同步辅助类](chapter3/README.md)
 
-    * [3.1 信号量Semaphore](chapter3/3-1.md)
+    * [3.1 信号量Semaphore](chapter3/Semaphore.md)
     
-    * [3.2 CountDownLatch](chapter3/3-2.md)
+    * [3.2 CountDownLatch](chapter3/CountDownLatch.md)
     
-    * [3.3 CyclicBarrier](chapter3/3-3.md)
+    * [3.3 CyclicBarrier](chapter3/CyclicBarrier.md)
     
-    * [3.4 Phaser](chapter3/3-4.md)
+    * [3.4 Phaser](chapter3/Phaser.md)
     
-    * [3.5 Exchanger](chapter3/3-5.md)
+    * [3.5 Exchanger](chapter3/Exchanger.md)
 
 * [第N章 推荐资源](chapterN.md)
 
