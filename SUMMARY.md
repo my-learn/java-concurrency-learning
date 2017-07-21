@@ -71,6 +71,8 @@
     * [5.3 非阻塞队列](chapter5/5-3.md)
     
     * [5.4 Map](chapter5/5-4.md)
+    
+    * [5.5 CopyOnWrite机制实现](chapter5/5-5.md)
 
 * [第6章 实用篇](chapter6.md)
 
