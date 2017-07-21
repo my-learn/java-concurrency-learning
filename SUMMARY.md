@@ -44,7 +44,7 @@
 
 * [第N章 推荐资源](chapterN.md)
 
-* [第4章 线程执行器](chapter4.md)
+* [第4章 Java Executor并发框架](chapter4.md)
 
     * [4.1 简介](chapter4/4-1.md)
     
