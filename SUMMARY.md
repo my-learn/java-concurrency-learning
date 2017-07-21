@@ -62,6 +62,11 @@
     
     * [4.8 CompletionService](chapter4/4-8.md)
 
+* [第5章 并发集合](chapter5.md)
+
+* [第6章 实用篇](chapter6.md)
+
+
 
 
 
