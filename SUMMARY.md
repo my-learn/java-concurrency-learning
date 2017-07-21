@@ -75,7 +75,6 @@
     * [5.5 CopyOnWrite机制实现](chapter5/5-7.md)
     
     * [5.6 支持排序的并发集合](chapter5/5-7.md)
-    
 
 * [第6章 实用篇](chapter6.md)
 
