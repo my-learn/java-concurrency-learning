@@ -70,11 +70,11 @@
     
 
     
-    * [5.3 非阻塞队列](chapter5/5-3.md)
+    * [5.3 非阻塞队列](chapter5/5-4.md)
     
-    * [5.4 ConcurrentMap](chapter5/5-4.md)
+    * [5.4 ConcurrentMap](chapter5/5-5.md)
     
-    * [5.5 CopyOnWrite机制实现](chapter5/5-5.md)
+    * [5.5 CopyOnWrite机制实现](chapter5/5-7.md)
     
     * [5.6 支持排序的并发集合](chapter5/5-7.md)
     
