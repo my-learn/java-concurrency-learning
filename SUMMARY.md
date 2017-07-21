@@ -69,6 +69,8 @@
     * [6.1 时间工具类TimeUnit](chapter6/6-1.md)
     
     * [6.2 Vector真的是安全的吗？](chapter6/6-2.md)
+    
+    * [6.3 Servlet的多线程同步问题](chapter6/6-3.md)
 
 
 
