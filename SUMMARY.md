@@ -1,6 +1,6 @@
 # Summary
 
-* [Introduction](README.md)
+* [介绍](README.md)
 
 * [java并发框架简介](java_concurrent_intro.md)
 
