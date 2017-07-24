@@ -76,7 +76,7 @@ if(lock.tryLock()) {
 
 # Lock概览
 Lock相关的类和接口都在java.util.concurrent.lock包下，该包整体结构
-![](/chapter2/diagram-1.png)
+![](/chapter2/diagram.png)
 
 重要的接口Lock和ReadWriteLock，实际基本使用他们的实现类ReentrantLock、ReentrantReadWriteLock。
 
