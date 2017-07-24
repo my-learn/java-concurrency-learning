@@ -38,9 +38,11 @@
     
     * [2.6 Lock和synchronized的选择](chapter2/Lock-vs-synchronized.md)
     
-    * [2.7 锁的相关概念](chapter2/Lock-concepts.md)
+    * [2.7 LockSupport](chapter2/LockSupport.md)
     
-    * [2.8 在锁中使用多条件(Condition)](chapter2/Condition .md)
+    * [2.8 锁的相关概念](chapter2/Lock-concepts.md)
+    
+    * [2.9 在锁中使用多条件(Condition)](chapter2/Condition .md)
 
 * [第3章 线程同步辅助类](chapter3/README.md)
 
