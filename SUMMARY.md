@@ -6,7 +6,7 @@
 
 * [第1章 线程管理](chapter1/README.md)
 
-    * [1.1 进程和线程](chapter1/1-1.md)
+    * [1.1 进程和线程](chapter1/process-thread.md)
     
     * [1.2 java 中创建进程](chapter1/1-2.md)
     
