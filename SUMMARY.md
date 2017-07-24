@@ -14,6 +14,8 @@
     
     * [1.4 停止线程](chapter1/stop-thread.md)
     
+    * [1.5 线程中断控制](chapter1/interrupt-thread.md)
+    
     * [1.5 Thread类详解](chapter1/1-4.md)
     
     * [1.6 线程的生命周期](chapter1/1-5.md)
