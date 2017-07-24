@@ -115,3 +115,14 @@ parkBlockerOffset作用：挂起线程对象的偏移地址，对应的是Thread
 LockSupport阻塞和唤醒线程直接操作的就是线程，所以更符合语义。而Object的wait/notify它并不是直接对线程操作，它是被动的方法，它需要一个object来进行线程的挂起或唤醒，只能随机唤醒一个(notify)或唤醒所有(notifyAll)。
 park/unpark使用起来会更加的灵活、方便。因为在调用对象的wait之前当前线程必须先获得该对象的监视器（synchronized），被唤醒之后需要重新获取到监视器才能继续执行。而LockSupport则不需要，它可以随意进行park或者unpark。
 
+# park有参数和无参数的区别
+LockSupport提供了park的2个重载方法
+```java
+public static void park() { }
+
+public static void park(Object blocker) { }
+```
+传不传这个参数有什么区别呢？
+blocker参数用于记录parkBlockerOffset的，parkBlockerOffset的作用在前面已经介绍了。
+
+
