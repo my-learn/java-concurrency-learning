@@ -74,6 +74,14 @@ if(lock.tryLock()) {
 + **unlock():**释放锁
 + **newCondition()：**
 
+# Lock概览
+Lock相关的类和接口都在java.util.concurrent.lock包下，该包整体结构
+![](/chapter2/diagram.png)
+
+Lock的直接或简介类有
+ReentrantLock
+WriterLock
+ReadLock
 
 
 # 锁的相关概念介绍
