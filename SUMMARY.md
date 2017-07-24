@@ -31,6 +31,8 @@
     * [2.2 Lock](chapter2/Lock.md)
     
     * [2.3 锁的相关概念](chapter2/Lock-concepts.md)
+    
+    * [2.4 在锁中使用多条件(Condition)](chapter2/Condition .md)
 
 * [第3章 线程同步辅助类](chapter3/README.md)
 
