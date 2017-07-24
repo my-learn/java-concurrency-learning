@@ -30,7 +30,7 @@
     
     * [2.2 Lock](chapter2/Lock.md)
     
-    * [2.3 ReentrantLock](chapter2/ReentrantLock.md)
+    * [2.3 可重入ReentrantLock](chapter2/ReentrantLock.md)
     
     * [2.4 锁的相关概念](chapter2/Lock-concepts.md)
     
