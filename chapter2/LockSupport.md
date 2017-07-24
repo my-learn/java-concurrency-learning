@@ -100,7 +100,7 @@ public class LockSupportTest {
 
 ```
 
-LockSupport源码分析
+# LockSupport源码分析
 先上源码（略。。。）
 这个类提供的都是静态方法，且无法被实例化。
 LockSupport有两个私有的成员变量
@@ -109,9 +109,9 @@ LockSupport有两个私有的成员变量
 private static final Unsafe unsafe = Unsafe.getUnsafe();
 private static final long parkBlockerOffset;
 ```
-parkBlockerOffset作用：用于记录线程是被谁阻塞的。可以通过LockSupport的getBlocker获取到阻塞的对象，用于监控和分析线程。
+parkBlockerOffset作用：挂起线程对象的偏移地址，对应的是Thread类的parkBlocker。用来记录线程是被谁堵塞的，当程序出现问题时候，通过线程监控分析工具可以找出问题所在。
 
 # 对比
-既然LockSupport和wait-notify实现一样的功能，自然就要拿他们两做对比了。
-阻塞和唤醒是对于线程的，LockSupport的park/unpark更符合这个语义，以“线程”作为方法的参数，语义清晰，使用方便。而wait/notify的实现对线程的阻塞/唤醒是被动的，只能随机唤醒一个(notify)或唤醒所有(notifyAll)
+LockSupport阻塞和唤醒线程直接操作的就是线程，所以更符合语义。而Object的wait/notify它并不是直接对线程操作，它是被动的方法，它需要一个object来进行线程的挂起或唤醒，只能随机唤醒一个(notify)或唤醒所有(notifyAll)。
+park/unpark使用起来会更加的灵活、方便。因为在调用对象的wait之前当前线程必须先获得该对象的监视器（synchronized），被唤醒之后需要重新获取到监视器才能继续执行。而LockSupport则不需要，它可以随意进行park或者unpark。
 
