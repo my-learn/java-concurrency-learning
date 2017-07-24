@@ -16,7 +16,7 @@
     
     * [1.5 线程的生命周期](chapter1/1-5.md)
     
-    * [1.6 线程组](chapter1/1-6.md)
+    * [1.6 线程组](chapter1/ThreadGroup.md)
     
     * [1.7 多线程中访问成员变量与局部变量](chapter1/1-7.md)
     
