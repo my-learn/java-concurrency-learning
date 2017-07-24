@@ -10,7 +10,7 @@ Lock的出现就是为了弥补这些不足。
 2. 采用synchronized不需要用户去手动释放锁，而使用Lock时必须要用户去手动释放锁，如果没有主动释放锁，就有可能导致出现死锁现象
 
 # Lock介绍
-Lock是一个接口，在java.util.concurrent.locks包中，源码如下
+Lock是一个接口，在java.util.concurrent.locks包中，接口中声明了如下接口：
 ```java
 public interface Lock {
     void lock();
