@@ -15,7 +15,7 @@ CountDownLatch类的方法
 ** 注意：计数无法被重置。如果需要重置计数，可以使用 CyclicBarrier **
 
 在使用CountDownLatch时，注意避免死锁。最好在finally块中调用countDown
-一个被await阻塞的线程在以下三种情况下恢复
+一个被await阻塞的线程在以下三种情况下恢复：
 + 调用 countDown() 方法，计数到达零
 + 其他某个线程中断当前线程
 + 超出await指定的等待时间
@@ -80,7 +80,9 @@ public class CountDownLatchTest {
 工作完成
 
 ```
+
 2. 一个会议需要等待所有参会人员加入才能开始会议
+
 ```java
 package com.gotoback.current;
 
