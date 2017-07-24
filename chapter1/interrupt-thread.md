@@ -1,3 +1,4 @@
+Thread提供了
 使用isInterrupted方法和interrupted方法
 继承了Thread类后，就有了isInterrupted()方法，可以用来检查线程是否已被中断，
 Thread类静态方法interrupted方法，用来检查** 当前执行的线程 **是否被中断。
