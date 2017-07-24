@@ -32,13 +32,15 @@
     
     * [2.3 可重入ReentrantLock](chapter2/ReentrantLock.md)
     
-    * [2.3 读写锁ReadWriteLock](chapter2/ReadWriteLock.md)
+    * [2.4 读写锁ReadWriteLock](chapter2/ReadWriteLock.md)
     
-    * [2.3 修改锁的公平性](chapter2/lock-fair.md)
+    * [2.5 修改锁的公平性](chapter2/lock-fair.md)
     
-    * [2.4 锁的相关概念](chapter2/Lock-concepts.md)
+    * [2.6 Lock和synchronized的选择](chapter2/Lock-vs-synchronized.md)
     
-    * [2.5 在锁中使用多条件(Condition)](chapter2/Condition .md)
+    * [2.7 锁的相关概念](chapter2/Lock-concepts.md)
+    
+    * [2.8 在锁中使用多条件(Condition)](chapter2/Condition .md)
 
 * [第3章 线程同步辅助类](chapter3/README.md)
 
