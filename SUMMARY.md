@@ -32,6 +32,8 @@
     
     * [2.3 可重入ReentrantLock](chapter2/ReentrantLock.md)
     
+    * [2.3 读写锁ReadWriteLock](chapter2/ReadWriteLock.md)
+    
     * [2.4 锁的相关概念](chapter2/Lock-concepts.md)
     
     * [2.5 在锁中使用多条件(Condition)](chapter2/Condition .md)
