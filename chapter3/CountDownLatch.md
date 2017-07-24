@@ -54,8 +54,7 @@ public class CountDownLatchTest {
 
 		public void run() {
 			System.out.println("工人 " + workerName + " 开始工作... ");
-			Random rn = new Random();
-			int workTime = rn.nextInt(10);
+			int workTime = new Random().nextInt(10);
 			try {
 				Thread.sleep(workTime * 1000);
 			} catch (InterruptedException e) {
