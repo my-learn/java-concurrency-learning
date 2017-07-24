@@ -12,17 +12,19 @@
     
     * [1.3 java 中创建线程](chapter1/1-3.md)
     
-    * [1.4 Thread类详解](chapter1/1-4.md)
+    * [1.4 停止线程](chapter1/stop-thread.md)
     
-    * [1.5 线程的生命周期](chapter1/1-5.md)
+    * [1.5 Thread类详解](chapter1/1-4.md)
     
-    * [1.6 线程组](chapter1/ThreadGroup.md)
+    * [1.6 线程的生命周期](chapter1/1-5.md)
     
-    * [1.7 多线程中访问成员变量与局部变量](chapter1/1-7.md)
+    * [1.7 线程组](chapter1/ThreadGroup.md)
     
-    * [1.8 线程间的通信-wait及notify方法](chapter1/wait-notify.md)
+    * [1.8 多线程中访问成员变量与局部变量](chapter1/1-7.md)
     
-    * [1.9 ThreadLocal类](chapter1/ThreadLocal.md)
+    * [1.9 线程间的通信-wait及notify方法](chapter1/wait-notify.md)
+    
+    * [1.10 ThreadLocal类](chapter1/ThreadLocal.md)
 
 * [第2章 多线程同步](chapter2/README.md)
 
