@@ -76,11 +76,6 @@ if(lock.tryLock()) {
 
 
 
-
-
-## ReadWriteLock
-
-
 # Lock和synchronized的选择
 总结来说，Lock和synchronized有以下几点不同：
 1. Lock是一个接口，而synchronized是Java中的关键字，synchronized是内置的语言实现；

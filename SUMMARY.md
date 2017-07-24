@@ -34,6 +34,8 @@
     
     * [2.3 读写锁ReadWriteLock](chapter2/ReadWriteLock.md)
     
+    * [2.3 修改锁的公平性](chapter2/lock-fair.md)
+    
     * [2.4 锁的相关概念](chapter2/Lock-concepts.md)
     
     * [2.5 在锁中使用多条件(Condition)](chapter2/Condition .md)
