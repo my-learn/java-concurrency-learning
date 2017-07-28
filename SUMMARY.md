@@ -57,5 +57,3 @@
   * [6.2 Vector真的是安全的吗？](chapter6/Vector.md)
   * [6.3 Servlet的多线程同步问题](chapter6/Servlet.md)
   * [6.4 volatile](chapter6/volatile.md)
-* [第7章 实用篇](di-7-zhang-shi-yong-pian.md)
-  * [7.1 volatile](chapter7/abc.md)
