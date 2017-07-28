@@ -1,7 +1,5 @@
 # Summary
 
-### Part I
-
 * [介绍](README.md)
 * [java并发框架简介](java_concurrent_intro.md)
 * [第1章 线程管理](chapter1/README.md)
@@ -54,9 +52,6 @@
   * [5.5 ConcurrentMap](chapter5/5-5.md)
   * [5.6 CopyOnWrite机制实现](chapter5/5-6.md)
   * [5.7 支持排序的并发集合](chapter5/5-7.md)
-  
-## Part II
-
 * [第6章 实用篇](chapter6.md)
   * [6.1 时间工具类TimeUnit](chapter6/TimeUnit.md)
   * [6.2 Vector真的是安全的吗？](chapter6/Vector.md)
