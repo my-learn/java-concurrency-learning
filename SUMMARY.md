@@ -114,7 +114,7 @@
     
     * [6.4 volatile](chapter6/volatile.md)
 
-* [第7章 实用篇]()
+* [第7章 实用篇]
 
     * [6.4 volatile](chapter6/volatile.md)
 
