@@ -2,5 +2,5 @@
     "pdf": {
         "fontSize": 14
     },
-    "plugins": ["expandable-chapters"]
+    "plugins": ["theme-comscore"]
 }
