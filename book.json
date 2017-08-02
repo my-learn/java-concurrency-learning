@@ -1,5 +1,6 @@
 {
     "pdf": {
         "fontSize": 14
-    }
+    },
+    "plugins": ["toggle-chapters"]
 }
