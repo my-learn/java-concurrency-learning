@@ -2,5 +2,5 @@
     "pdf": {
         "fontSize": 14
     },
-    "plugins": ["gtoc"]
+    "plugins": ["page-toc"]
 }
