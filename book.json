@@ -2,5 +2,11 @@
     "pdf": {
         "fontSize": 14
     },
-    "plugins": ["page-toc"]
+    "plugins": ["atoc"],
+     "pluginsConfig": {
+     	"atoc": {
+     		"addClass": true,
+     		"className": "atoc"
+     	}
+     }
 }
