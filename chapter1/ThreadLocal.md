@@ -66,7 +66,7 @@ public class Test {
 主子线程[main] num=9
 ```
 子线程修改了变量num的值，最后主线程获取到的num值发生改变了，这也说明在多线程下，变量访问是有问题的。
-下面我们将变量num改成ThreadLocal，打开以上代码注释即可，运行结果如下
+下面我们将变量num改成ThreadLocal，打开以上代码注释即可，运行结果如下：
 ``` plain 
 主线程[main] 给num设值,num=1
 子线程[Thread-0] 给num设值,num=9
@@ -76,7 +76,7 @@ public class Test {
 可以看到子线程修改了变量没有影响到main主线程，这也证明了通过ThreadLocal能达到在每个线程中创建变量副本的效果。
 
 ## 示例二
-多个线程实现计数
+多个线程实现各自的计数
 ```plain 
 class Counter {
 	private static int count;
@@ -174,7 +174,7 @@ Thead类定义了一个ThreadLocal.ThreadLocalMap类型变量
 
 
 # 自己实现一个ThreadLocal
-我们来模拟实现一个ThreadLocal
+既然知道了ThreadLocal的原理，下面我们就自己模拟实现一个ThreadLocal吧
 ```java
 package test;
 import java.util.Collections;
