@@ -263,7 +263,8 @@ public void set(Long val) {
 
 
 # 自己实现一个ThreadLocal
-既然知道了ThreadLocal的原理，下面我们就自己模拟实现一个ThreadLocal吧
+ThreadLocal的设计有点特别，它是在每个线程中有个一个Map，而将ThreadLocal实例作为key。而一般人想到的方式可能会是定义一个静态的Map，将当前的Thread作为key,put到Map中。ThreadLocal的这种设计可以使每个Map中的项数很少。
+下面我们就自己模拟用静态Map实现一个简单的ThreadLocal吧
 ```java
 package test;
 import java.util.Collections;
@@ -291,8 +292,7 @@ public class MyThreadLocal<T> {
 	}
 }
 ```
-可以自己定义一个静态的Map，将当前的Thread作为key，创建的session作为值，put到Map中，应该也行，这也是一般人的想法，但事实上，ThreadLocal的实现刚好相反，它是在每个线程中有个一个Map，而将ThreadLocal实例作为key，这样每个Map中的项数很少。
-每个ThreadLocal当然只能放一个对象，要是需要放其他的对象，就再new一个新的ThreadLocal出来，这个新的ThreadLocal作为key，需要放的对象作为value，放到ThreadLocalMap中。
+
 
 
 
