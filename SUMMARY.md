@@ -7,7 +7,7 @@
   * [1.2 java 中创建进程](chapter1/1-2.md)
   * [1.3 java 中创建线程](chapter1/1-3.md)
   * [1.4 停止线程](chapter1/stop-thread.md)
-  * [1.5 线程中断](chapter1/interrupt-thread.md)
+  * [1.5 线程中断机制](chapter1/interrupt-thread.md)
   * [1.6 线程中不可控异常的处理](chapter1/uncaught-exception-in-thread.md)
   * [1.6 守护线程](chapter1/daemon-thread.md)
   * [1.5 Thread类详解](chapter1/1-4.md)
