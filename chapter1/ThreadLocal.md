@@ -1,4 +1,4 @@
-java.lang.ThreadLocal为解决多线程程序的并发问题提供了一种新的思路。ThreadLocal可用来存放线程的局部变量，每个线程都有单独的局部变量，彼此之间不会共享。
+java.lang.ThreadLocal可用来存放线程的局部变量，每个线程都有单独的局部变量，彼此之间不会共享。
 它并不是一个Thread，而是一个线程局部变量，也许把他命名为ThreadLocalVariable更合适。
 
 
@@ -168,8 +168,97 @@ public class SessionUtil {
 ```
 
 # 原理探究
-ThreadLocal类中定义了静态内部类ThreadLocalMap，ThreadLocalMap中又定义了一个静态内部类Entry。
-Thead类定义了一个ThreadLocal.ThreadLocalMap类型变量
+ThreadLocal实现的核心原理就是将变量添加到Thread的一个变量中存储。下面看具体实现
+![](/chapter1/110.png)
+我们看到ThreadLocal的类图（注：ThreadLocalMap是ThreadLocal的内部类，Entry是ThreadLocalMap的内部类。）
+Thread有一个类型为ThreadLocalMap的变量`threadLocals`，用于存储该Thread拥有的用户变量，变量具体怎么存储交给了ThreadLocalMap，我们再看ThreadLocalMap，它有一个类型为Entry的数组变量table，用于存储用户变量，这里是数组，自然是可以存储多个用户变量了。一个Entry带代表了一个变量
+一个用户变量又怎么存储的呢？我们还要再看看Entry，看他的构造函数就能一目了然
+```java
+static class Entry extends WeakReference<ThreadLocal> {
+	/** The value associated with this ThreadLocal. */
+	Object value;
+
+	Entry(ThreadLocal k, Object v) {
+		super(k);
+		value = v;
+	}
+}
+```
+key类型为ThreadLocal，值就是用户设置的值。
+
+再看看代码
+最基本的使用
+```java
+private ThreadLocal<Long> num = new ThreadLocal<Long>();
+num.set(123456l);
+```
+我们直接从set方法入手
+```java
+public void set(T value) {
+	Thread t = Thread.currentThread();
+	ThreadLocalMap map = getMap(t);
+	if (map != null)
+		map.set(this, value);
+	else
+		createMap(t, value);
+}
+```
+这里顺便给出getMap(t)代码
+```java
+ThreadLocalMap getMap(Thread t) {
+	return t.threadLocals;
+}
+```
+set方法的逻辑：当前Thread的threadLocals变量是否为null？，假设不为null，进入if,看到ThreadLocalMap#set方法
+```java
+private void set(ThreadLocal key, Object value) {
+
+	// We don't use a fast path as with get() because it is at
+	// least as common to use set() to create new entries as
+	// it is to replace existing ones, in which case, a fast
+	// path would fail more often than not.
+
+	Entry[] tab = table;
+	int len = tab.length;
+	int i = key.threadLocalHashCode & (len-1);
+
+	for (Entry e = tab[i];
+		 e != null;
+		 e = tab[i = nextIndex(i, len)]) {
+		ThreadLocal k = e.get();
+
+		if (k == key) {
+			e.value = value;
+			return;
+		}
+
+		if (k == null) {
+			replaceStaleEntry(key, value, i);
+			return;
+		}
+	}
+
+	tab[i] = new Entry(key, value);
+	int sz = ++size;
+	if (!cleanSomeSlots(i, sz) && sz >= threshold)
+		rehash();
+}
+```
+还是比较容易看得懂的
+
+如果想更直观的看到数据是如何存储的，打个断点看看就能明白
+为了方便看到Thread的变量threadLocals的值，加如下两行代码，断点打在System.out.println这行上
+```java
+public void set(Long val) {
+//    	num = val;
+	num.set(val);
+	num2.set(333l);
+	Thread tTmp = Thread.currentThread();
+	System.out.println("a");
+}
+```
+查看tTmp的threadLocals的值
+![](/chapter1/1110_2.png)
 
 
 
