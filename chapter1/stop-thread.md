@@ -1,6 +1,6 @@
 终止一个线程有三种方法
 1. 使用退出状态标志。该方式使线程正常退出
-2. 使用stop方法强行终止线程。** 这个方法是不安全的，已经废弃不推荐使用 ，**因为stop和suspend、resume一样，也可能发生不可预料的结果
+2. 使用stop方法强行终止线程。** 这个方法是不安全的，已经废弃不推荐使用 ，**因为`stop`和`suspend`、`resume`、`destroy`一样，也可能发生不可预料的结果
 3. 使用interrupt方法中断线程
 
 正确额终止线程的方式应该是让run()方法自然结束，而不是暴力的方式终止，类似强制关机一样，说不定电脑就崩了。
@@ -11,7 +11,7 @@
 ```java
 class MyThreadClass implements Runnable
 {
-    private boolean flag = true;
+    private volatile boolean flag = true;
     @Override
     public void run()
     {
