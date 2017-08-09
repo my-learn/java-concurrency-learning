@@ -26,7 +26,7 @@
   * [2.7 LockSupport](chapter2/LockSupport.md)
   * [2.8 锁的相关概念](chapter2/Lock-concepts.md)
   * [2.9 在锁中使用多条件\(Condition\)](chapter2/Condition .md)
-* [第3章 线程同步辅助类](chapter3/README.md)
+* [第3章 线程同步辅助类](chapter3)
   * [3.1 简介](chapter3/intro.md)
   * [3.2 信号量Semaphore](chapter3/Semaphore.md)
   * [3.3 CountDownLatch](chapter3/CountDownLatch.md)
