@@ -16,7 +16,7 @@
   * [1.8 多线程中访问成员变量与局部变量](chapter1/1-7.md)
   * [1.9 线程间的通信-wait及notify方法](chapter1/wait-notify.md)
   * [1.10 ThreadLocal类](chapter1/ThreadLocal.md)
-* [第2章 多线程同步](chapter2/README.md)
+* [第2章 多线程同步](chapter2)
   * [2.1 synchronized](chapter2/synchronized.md)
   * [2.2 Lock](chapter2/Lock.md)
   * [2.3 可重入ReentrantLock](chapter2/ReentrantLock.md)
