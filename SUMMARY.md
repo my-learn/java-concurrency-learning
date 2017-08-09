@@ -33,8 +33,6 @@
   * [3.4 CyclicBarrier](chapter3/CyclicBarrier.md)
   * [3.5 Phaser](chapter3/Phaser.md)
   * [3.6 Exchanger](chapter3/Exchanger.md)
-* [第N章 推荐资源](chapterN.md)
-  * [N.1 并发编程框架 Disruptor](chapterN/N-1.md)
 * [第4章 Java Executor并发框架](chapter4.md)
   * [4.1 简介](chapter4/4-1.md)
   * [4.2 Executor接口](chapter4/4-2.md)
@@ -58,4 +56,6 @@
   * [6.2 Vector真的是安全的吗？](chapter6/Vector.md)
   * [6.3 Servlet的多线程同步问题](chapter6/Servlet.md)
   * [6.4 volatile](chapter6/volatile.md)
+* [第N章 推荐资源](chapterN.md)
+  * [N.1 并发编程框架 Disruptor](chapterN/N-1.md)
 
