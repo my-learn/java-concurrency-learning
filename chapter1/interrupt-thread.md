@@ -1,4 +1,4 @@
-Java的中断机制很容易被人理解为是中断线程的，其实理解不完全对。每一个线程都有一个中断状态，调用线程对象的interrupt方法并不一定中断了正在运行的线程，而仅仅它通知线程在合适的时机中断自己，也即将线程状态改为“中断状态”，改变中断状态后再如何处理就需要用户自己去控制了，比如结束线程、传递异常、忽略中断再继续任务等等
+Java的中断机制很容易被人理解为是中断线程的，使线程停止，其实理解不完全对。每一个线程都有一个中断状态，调用线程对象的interrupt方法并不一定中断了正在运行的线程，而仅仅它通知线程在合适的时机中断自己，也即将线程状态改为“中断状态”，改变中断状态后再如何处理就需要用户自己去控制了，比如结束线程、传递异常、忽略中断再继续任务等等
 
 
 # Thread提供的中断相关的方法
@@ -30,6 +30,7 @@ synchronized在获锁的过程中是不能被中断的，`reentrantLock.lock()`�
 如果一个线程在调用实现了InterruptibleChannel接口的代码上阻塞，一个线程调用了该阻塞线程的 interrupt 方法，将会导致该通道被关闭，同时已阻塞线程接将会收到ClosedByInterruptException，并且设置已阻塞线程的中断状态。
 
 
+
 # 示例
 前面说了很多关于中断的东西，还是来看看代码吧
 
@@ -57,36 +58,10 @@ public class InterruptTest {
 	}
 }
 ```
-不可中断的阻塞
+
+不能中断处于非阻塞状态的线程
 ```java
-import java.io.IOException;
 
-public class InterruptTest {
-	public static void main(String[] args) throws IOException, InterruptedException {
-
-		Thread t = new Thread() {
-			@Override
-			public void run() {
-				while(!Thread.currentThread().isInterrupted()){
-					long c = 1;
-					for (int i = 1; i < Integer.MAX_VALUE; i++) {
-						c = i*c; //做乘法，耗时
-					}
-				}
-				
-				 // 线程被中断后，会跳出while循环
-				System.out.println("线程被中断");
-				
-			}
-		};
-		t.start();
-		System.out.println("在50秒之内按任意键中断线程!");
-		System.in.read();
-		t.interrupt();
-		t.join();
-		System.out.println("线程已经退出!");
-	}
-}
 ```
 
 
