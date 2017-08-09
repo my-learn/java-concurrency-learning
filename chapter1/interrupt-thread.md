@@ -12,8 +12,6 @@ interrupt跟interrupted区别在于interrupted用来判断当前线是否被中�
 isInterrupted()和interrupted()方法有一个很大的区别。isInterrupted()不能改变interrupted属性的值，但是后者能设置interrupted属性为false。因为interrupted()是一个静态方法，更推荐使用isInterrupted()方法。
 当你主动调用了线程实例的interrupt()方法， 就可以用isInterrupted()捕获到。
 
-# 为什么stop方法被废弃
-参考[Why Are Thread.stop, Thread.suspend, Thread.resume and Runtime.runFinalizersOnExit Deprecated?](http://docs.oracle.com/javase/1.5.0/docs/guide/misc/threadPrimitiveDeprecation.html)
 
 
 # 响应中断

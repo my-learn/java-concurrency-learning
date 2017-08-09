@@ -30,3 +30,7 @@ class MyThreadClass implements Runnable
 }
 ```
 
+# 为什么stop方法被废弃
+参考[Why Are Thread.stop, Thread.suspend, Thread.resume and Runtime.runFinalizersOnExit Deprecated?](http://docs.oracle.com/javase/1.5.0/docs/guide/misc/threadPrimitiveDeprecation.html)
+
+
