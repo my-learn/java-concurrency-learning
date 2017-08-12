@@ -60,4 +60,6 @@
 * [第7章 资源](chapter7.md)
   * [7.1 学习资源](chapter7/learning-resources.md)
   * [7.2 并发编程框架 Disruptor](chapter7/disruptor.md)
+* [说明](notice.md)
+
 
