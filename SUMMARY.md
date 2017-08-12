@@ -34,7 +34,7 @@
   * [3.4 CyclicBarrier](chapter3/CyclicBarrier.md)
   * [3.5 Phaser](chapter3/Phaser.md)
   * [3.6 Exchanger](chapter3/Exchanger.md)
-* [第4章 Java Executor并发框架](chapter4.md)
+* [第4章 Java Executor并发框架](chapter4)
   * [4.1 简介](chapter4/4-1.md)
   * [4.2 Executor接口](chapter4/4-2.md)
   * [4.3 ExecutorService接口](chapter4/4-3.md)
