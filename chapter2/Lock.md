@@ -23,18 +23,6 @@ public interface Lock {
     Condition newCondition();
 }
 ```
-在使用时，为了防止死锁，一般的写法：
-```java
-Lock lock = new ReentrantLock();
-lock.lock();
-try{
-    //处理任务
-}catch(Exception ex){
-     
-}finally{
-    lock.unlock();   //释放锁
-}
-```
 
 # 方法
 Lock接口中6个方法，我们来介绍下
@@ -82,8 +70,22 @@ Lock相关的类和接口都在java.util.concurrent.lock包下，该包整体结
 重要的接口Lock和ReadWriteLock，实际基本使用他们的实现类ReentrantLock、ReentrantReadWriteLock。
 
 
-# 锁的相关概念介绍
-转载地址：<http://www.cnblogs.com/dolphin0520/p/3923167.html>
+# Lock的使用
+由于Lock是一个接口，具体使用请阅读下节对Lock子类ReentrantLock的介绍。
+基本用法：在使用时，为了防止死锁，一般的写法如下：
+```java
+Lock lock = new ReentrantLock();
+lock.lock();
+try{
+    //处理任务
+}catch(Exception ex){
+     
+}finally{
+    lock.unlock();   //释放锁
+}
+```
+
+
 
 
 
