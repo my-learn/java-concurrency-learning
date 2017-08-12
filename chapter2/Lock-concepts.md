@@ -44,3 +44,9 @@ Java偏向锁(Biased Locking)是Java6引入的一项多线程优化。它通过�
 # 读写锁
 jvm提供的锁优化机制。参考`ReadWriteLock`
 
+
+
+参考
+<http://www.cnblogs.com/softidea/p/5530761.html>
+<http://blog.csdn.net/liushengbaoblog/article/details/39227863>
+
