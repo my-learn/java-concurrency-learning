@@ -57,6 +57,6 @@
   * [6.2 Vector真的是安全的吗？](chapter6/Vector.md)
   * [6.3 Servlet的多线程同步问题](chapter6/Servlet.md)
   * [6.4 volatile](chapter6/volatile.md)
-* [第N章 推荐资源](chapterN.md)
+* [第7章 资源](chapterN.md)
   * [N.1 并发编程框架 Disruptor](chapterN/N-1.md)
 
