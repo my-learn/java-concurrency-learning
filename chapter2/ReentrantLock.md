@@ -1,8 +1,11 @@
-ReentrantLock是一个可重入的互斥锁定 Lock，它具有与使用 synchronized 方法和语句所访问的隐式监视器锁定相同的一些基本行为和语义，但功能更强大。
-ReentrantLock 将由最近成功获得锁定，并且还没有释放该锁定的线程所拥有。当锁定没有被另一个线程所拥有时，调用 lock 的线程将成功获取该锁定并返回。如果当前线程已经拥有该锁定，此方法将立即返回。可以使用 `isHeldByCurrentThread()` 和 `getHoldCount()` 方法来检查此情况是否发生。
+ReentrantLock，意思是“可重入锁”，它是唯一实现了Lock接口的类，并且ReentrantLock提供了更多的方法。
+
+当锁定没有被另一个线程所拥有时，调用 lock 的线程将成功获取该锁定并返回。如果当前线程已经拥有该锁定，此方法将立即返回。可以使用 `isHeldByCurrentThread()` 和 `getHoldCount()` 方法来检查锁的情况
+
 该类的构造方法接受一个可选的公平参数，当设置为 true时，在多个线程的争用下，这些锁定倾向于将访问权授予等待时间最长的线程。否则此锁定将无法保证任何特定访问顺序。
-与采用默认设置（使用不公平锁定）相比，使用公平锁定的程序在许多线程访问时表现为很低的总体吞吐量（即速度很慢，常常极其慢），但是在获得锁定和保证锁定分配的均衡性时差异较小。不过要注意的是，公平锁定不能保证线程调度的公平性。因此，使用公平锁定的众多线程中的一员可能获得多倍的成功机会，这种情况发生在其他活动线程没有被处理并且目前并未持有锁定时。还要注意的是，未定时的 tryLock 方法并没有使用公平设置。因为即使其他线程正在等待，只要该锁定是可用的，此方法就可以获得成功。
-建议总是 立即实践，使用 try 块来调用 lock，在之前/之后的构造中，最典型的代码如下：
+
+# ReentrantLock基本使用
+ReentrantLock最典型的使用方式如下：
 ```java
 class X {
 	private final ReentrantLock lock = new ReentrantLock();
@@ -17,48 +20,8 @@ class X {
 	}
 }
 ```
-示例
-```java
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.locks.ReentrantLock;
-public class MyReentrantLock extends Thread {
-	TestReentrantLock lock;
-	private int id;
-	public MyReentrantLock(int i, TestReentrantLock test) {
-		this.id = i;
-		this.lock = test;
-	}
-	public void run() {
-		lock.print(id);
-	}
-	public static void main(String args[]) {
-		ExecutorService service = Executors.newCachedThreadPool();
-		TestReentrantLock lock = new TestReentrantLock();
-		for (int i = 0; i < 10; i++) {
-			service.submit(new MyReentrantLock(i, lock));
-		}
-		service.shutdown();
-	}
-}
-class TestReentrantLock {
-	private ReentrantLock lock = new ReentrantLock();
-	public void print(int str) {
-		try {
-			lock.lock();
-			System.out.println(str + "获得");
-			Thread.sleep((int) (Math.random() * 1000));
-		}catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-			System.out.println(str + "释放");
-			lock.unlock();
-		}
-	}
-}
-```
 
-ReentrantLock，意思是“可重入锁”，关于可重入锁的概念在下一节讲述。ReentrantLock是唯一实现了Lock接口的类，并且ReentrantLock提供了更多的方法。下面通过一些实例具体看一下如何使用ReentrantLock
+# 使用示例
 例1：lock()的正确使用方法，注意lock声明锁的地方，在代码中已经用注释说明
 ```java
 public class Test {
