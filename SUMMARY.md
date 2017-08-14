@@ -41,7 +41,7 @@
   * [4.4 ScheduledExecutorService接口](chapter4/4-4.md)
   * [4.5 Executors静态工厂方法](chapter4/4-5.md)
   * [4.6 ThreadPoolExecutor ](chapter4/4-6.md)
-  * [4.7 Callable、Future、FutureTask](chapter4/4-7.md)
+  * [4.7 可以返回结果的线程](chapter4/4-7.md)
   * [4.8 CompletionService](chapter4/4-8.md)
   * [4.9 Executors得到当前活动的线程数](chapter4/4-9.md)
 * [第5章 并发集合](chapter5.md)
