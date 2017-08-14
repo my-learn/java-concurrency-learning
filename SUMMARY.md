@@ -39,7 +39,7 @@
   * [4.2 Executor接口](chapter4/4-2.md)
   * [4.3 ExecutorService接口](chapter4/4-3.md)
   * [4.4 ScheduledExecutorService接口](chapter4/4-4.md)
-  * [4.5 Executors类](chapter4/4-5.md)
+  * [4.5 Executors静态工厂方法](chapter4/4-5.md)
   * [4.6 ThreadPoolExecutor ](chapter4/4-6.md)
   * [4.7 Callable、Future、FutureTask](chapter4/4-7.md)
   * [4.8 CompletionService](chapter4/4-8.md)
@@ -61,5 +61,4 @@
   * [7.1 学习资源](chapter7/learning-resources.md)
   * [7.2 并发编程框架 Disruptor](chapter7/disruptor.md)
 * [说明](notice.md)
-
 
