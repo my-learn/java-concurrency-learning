@@ -39,6 +39,10 @@ public class Counter {
 ```
 每次运行的记过都不一样，即使给count 加上volatile修饰，也是一样的。
 
+对于volatile修饰的变量，jvm虚拟机只是保证从主内存加载到线程工作内存的值是最新的。如果一些操作并不是原子性，也就是 在read load之后，如果主内存count变量发生修改之后，线程工作内存中的值由于已经加载，不会产生对应的变化，所以计算出来的结果会和预期不一样
+![](/chapter6/641.jpg)
+
+
 使用场景
 状态标记量
 ```java
@@ -55,7 +59,7 @@ public void doWork() {
 }  
 ```
 
-相关链接
+参考
 http://www.importnew.com/18126.html
 http://www.cnblogs.com/aigongsi/archive/2012/04/01/2429166.html
 http://blog.csdn.net/vking_wang/article/details/9982709
