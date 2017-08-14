@@ -12,7 +12,7 @@ CountDownLatch类的方法
 大体原理图（来自网络）
 ![](/chapter3/CountDownLatch-1.png)
 
-** 注意：计数无法被重置。如果需要重置计数，可以使用 CyclicBarrier **
+** 注意：计数无法被重置，只能重新new一个。如果需要重置计数，可以使用 CyclicBarrier **
 
 在使用CountDownLatch时，注意避免死锁。最好在finally块中调用countDown
 一个被await阻塞的线程在以下三种情况下恢复：
