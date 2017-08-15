@@ -16,8 +16,18 @@ LinkedTransferQueue是TransferQueue唯一的实现类。它是基于链表的无
 
 * put():生产者将元素放入queue中，该方法不会抛出异常，因为LinkedTransferQueue没有size大小限制，即无界的。
 * take():从queue中获取元素，如果为空，则一直等待
-* size()：因为队列的异步特性，检测当前队列的元素个数需要逐一迭代，可能会得到一个不太准确的结果，尤其是在遍历时有可能队列发生更改，同时API不能保证一定会立刻执行
-* 批量操作：类似于addAll，removeAll, retainAll, containsAll, equals, toArray等方法，API不能保证一定会立刻执行。
+* size()：因为队列的异步特性，检测当前队列的元素个数需要逐一迭代，可能会得到一个不太准确的结果，尤其是在遍历时有可能队列发生更改，同时API不能保证一定会立刻执行。**尽量避免使用**
+* 批量操作：类似于addAll，removeAll, retainAll, containsAll, equals, toArray等方法，API不能保证一定会立刻执行。**尽量避免使用**
+
+SynchronousQueue的底层也是用类似transfer思路实现的，它定义了一个静态内部类Transferer，并提供transfer方法，我们知道SynchronousQueue本身不存在容量,只能进行线程之间的元素传送，当执行SynchronousQueue的offer操作时，如果没有其他线程执行poll，则直接返回false，这里程之间元素传送正是通过transfer方法完成的。
+看看poll()源码就知道了
+```java
+public E poll() {
+    return (E)transferer.transfer(null, true, 0);
+}
+```
+
+transfer算法比较复杂，大致的理解是采用所谓双重数据结构(dual data structures)。之所以叫双重，其原因是方法都是通过两个步骤完成：保留与完成。比如消费者线程从一个队列中取元素，发现队列为空，他就生成一个空元素放入队列,所谓空元素就是数据项字段为空。然后消费者线程在这个字段上旅转等待。这叫保留。直到一个生产者线程意欲向队例中放入一个元素，这里他发现最前面的元素的数据项字段为NULL，他就直接把自已数据填充到这个元素中，即完成了元素的传送。
 
 # 示例
 定义一个生产者
@@ -132,5 +142,5 @@ TransferQueue相比SynchronousQueue更好用，因为你可以决定是使用Blo
 而且[Doug Lea](http://cs.oswego.edu/pipermail/concurrency-interest/2009-February/005888.html) 也解释了开发TransferQueue的动机：从功能角度来讲，LinkedTransferQueue实际上是ConcurrentLinkedQueue、SynchronousQueue（公平模式）和LinkedBlockingQueue的超集。而且LinkedTransferQueue更好用，因为它不仅仅综合了这几个类的功能，同时也提供了更高效的实现。
 
 参考
-[Java 7中的TransferQueue](http://ifeve.com/java-transfer-queue/)
-
+http://ifeve.com/java-transfer-queue/
+http://blog.csdn.net/yjian2008/article/details/16951811 
