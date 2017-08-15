@@ -6,6 +6,10 @@ JSR 166: Concurrency Utilities 官方的描述“The JSR proposes a set of mediu
 API手册：http://gee.cs.oswego.edu/dl/jsr166/dist/docs/
 [Doug Lea维护的blog](http://g.oswego.edu/dl/concurrency-interest/)
 
+先上图Doug Lea大神，来膜拜一下
+![](/Doug Lea.jpg)
+
+
 并发库结构图（来自网络）
 ![](/structure-1.png)
 ![](/structure-2.jpg)
