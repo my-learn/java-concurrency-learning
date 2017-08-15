@@ -1,8 +1,8 @@
-`java.util.concurrent.TransferQueue`是jdk1.7新增的接口，继承自BlockingQueue。
+`java.util.concurrent.TransferQueue`是jdk1.7新增的接口，继承自BlockingQueue，所以它具备阻塞队列的所有特性，除此还提供5个新的API功能。
 
 TransferQueue中定义了5个方法
-* transfer(E e)：若当前存在一个正在等待获取的消费者线程，即立刻移交之；否则，会插入当前元素e到队列尾部，并且等待进入阻塞状态，直到到有消费者线程取走该元素。
-* tryTransfer(E e)：若当前存在一个正在等待获取的消费者线程（使用take()或者poll()函数），使用该方法会即刻转移/传输对象元素e；若不存在，则返回false，并且不进入队列。这是一个不阻塞的操作。
+* transfer(E e)：若当前存在一个正在等待获取的消费者线程（使用take()或者poll()函数），即立刻移交之；否则，会插入当前元素e到队列尾部，并且等待进入阻塞状态，直到到有消费者线程取走该元素。
+* tryTransfer(E e)：若当前存在一个正在等待获取的消费者线程，使用该方法会即刻转移/传输对象元素e；若不存在，则返回false，并且不进入队列。这是一个不阻塞的操作。
 * tryTransfer(E e, long timeout, TimeUnit unit)：若当前存在一个正在等待获取的消费者线程，会立即传输给它;否则将插入元素e到队列尾部，并且等待被消费者线程获取消费掉；若在指定的时间内元素e无法被消费者线程获取，则返回false，同时该元素被移除。
 * hasWaitingConsumer()：判断是否存在消费者线程。
 * getWaitingConsumerCount()：获取所有等待获取元素的消费线程数量。
