@@ -58,6 +58,7 @@
   * [6.2 Vector真的是安全的吗？](chapter6/Vector.md)
   * [6.3 Servlet的多线程同步问题](chapter6/Servlet.md)
   * [6.4 volatile](chapter6/volatile.md)
+  * [6.5 executorService停止线程的陷阱](chapter6/executorService-error.md)
 * [第7章 资源](chapter7.md)
   * [7.1 学习资源](chapter7/learning-resources.md)
   * [7.2 openjdk 源码下载](chapter7/openjdk.md)
