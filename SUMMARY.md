@@ -18,7 +18,7 @@
   * [1.10 ThreadLocal类](chapter1/ThreadLocal.md)
 * [第2章 多线程同步](chapter2.md)
   * [2.1 简介](chapter2/intro.md)
-  * [2.2 锁的相关概念](chapter2/Lock-concepts.md)
+  * [2.2 锁的相关概念介绍](chapter2/Lock-concepts.md)
   * [2.3 synchronized](chapter2/synchronized.md)
   * [2.4 Lock](chapter2/Lock.md)
   * [2.5 可重入ReentrantLock](chapter2/ReentrantLock.md)
