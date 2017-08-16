@@ -63,7 +63,5 @@
   * [6.7 AbstractQueuedSynchronizer](chapter6/AbstractQueuedSynchronizer.md)
 * [第7章 资源](chapter7.md)
   * [7.1 学习资源](chapter7/learning-resources.md)
-  * [7.2 openjdk 源码下载](chapter7/openjdk.md)
-  * [7.3 并发编程框架 Disruptor](chapter7/disruptor.md)
 * [说明](notice.md)
 
