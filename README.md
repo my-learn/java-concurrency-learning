@@ -8,7 +8,7 @@
 **目录**
 
 * [关于本书](README.md)
-* [java并发框架简介](java_concurrent_intro.md)
+* [前言 java并发框架简介](java_concurrent_intro.md)
 * [第1章 线程管理](chapter1.md)
   * [1.1 进程和线程](chapter1/process-thread.md)
   * [1.2 java 中创建进程](chapter1/1-2.md)
