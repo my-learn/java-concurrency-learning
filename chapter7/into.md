@@ -18,10 +18,10 @@ private boolean compareAndSetRaw(long offset, int expect, int update) {
 
 
 java.util.concurrent.atomic包中共有12个原子类，可以分成4组
-* 标量类（Scalar）：AtomicBoolean，AtomicInteger，AtomicLong，AtomicReference
-* 数组类：AtomicIntegerArray，AtomicLongArray，AtomicReferenceArray
-* 更新器类：AtomicLongFieldUpdater，AtomicIntegerFieldUpdater，AtomicReferenceFieldUpdater
-* 复合变量类：AtomicMarkableReference，AtomicStampedReference，AtomicStampedReference(解决CAS的ABA问题)
+* 简单类型原子变量：AtomicBoolean，AtomicInteger，AtomicLong，AtomicReference
+* 原子数组：AtomicIntegerArray，AtomicLongArray，AtomicReferenceArray
+* 基于反射的更新器：AtomicLongFieldUpdater，AtomicIntegerFieldUpdater，AtomicReferenceFieldUpdater
+* 其他：AtomicMarkableReference，AtomicStampedReference(解决CAS的ABA问题)
 
 原子类通用方法
 * set( )和get( )方法：可以原子地设定和获取atomic的数据。类似于volatile，保证数据会在主存中设置或读取
