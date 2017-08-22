@@ -1,4 +1,6 @@
-AtomicReference 可以实现对象引用的原子更新操作，下面看示例代码
+AtomicReference 可以实现对象引用的原子更新操作。
+
+下面看示例代码：
 ```java
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -37,3 +39,4 @@ class Person {
 }
 ```
 
+跟AtomicInteger使用上没有太多的区别，不再细说
