@@ -1,4 +1,6 @@
-Fork/Join框架是用来解决能够通过分治技术将一个问题拆分成子问题来解决的技术框架。
+Fork/Join框架思想就是充分利用多核CPU把计算任务拆分成多个子任务，提高cpu利用率，有点类似MapReduce思想。
+
+Fork/Join提供的接口很简洁，核心只有三个类/接口，你不需要太多时间关心并行时线程的通信，死锁问题，线程同步
 
 ForkJoinPool继承自ExecutorService，提供了多个重载的submit方法，计算任务，其中一个submit方法接收一个ForkJoinTask类型参数。
 它默认的并行线程数通过使用`Runtime.getRuntime().availableProcessors()`获取的。
