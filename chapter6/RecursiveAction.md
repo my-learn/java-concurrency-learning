@@ -33,7 +33,7 @@ public class PrintTask extends RecursiveAction {
 			// 并行执行两个小任务
 			//left.fork();
 			//right.fork();
-			invokeAll(left,right); //跟上面的两行代码是等价的
+			invokeAll(left,right); //同步方式执行任务
 		}
 	}
 }
