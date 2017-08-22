@@ -80,4 +80,8 @@ public class Test2 {
 	}
 }
 ```
-我们看到使用了AtomicIntegerArray原子数组后，在并发情况下，对数组元素操作是线程安全的
+我们看到使用了AtomicIntegerArray原子数组后，在并发情况下，对数组元素操作是线程安全的。
+
+原子数组还提供了对指定索引的元素的操作：
+* get(int i)：返回数组中指定位置的值
+* set(int i, int newValue):设置指定位置的新值
