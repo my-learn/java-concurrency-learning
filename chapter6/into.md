@@ -1,7 +1,7 @@
 
-Fork/Join框架思想就是充分利用多核CPU的优势把计算任务拆分成多个子任务，再把多个子任务的计算结果合并，提高cpu利用率，有点类似MapReduce思想。
+Fork/Join框架思想就是充分利用多核CPU的优势把计算任务拆分成多个子任务，再把多个子任务的计算结果合并，提高cpu利用率，有点类似MapReduce思想。一个可以被拆分的任务要符合可以被递归拆分的要求
 
-Fork/Join框架和执行器框架(Executor Framework)主要的区别在于Fork/Join框架使用了工作窃取算法(Work-Stealing Algorithm)。
+Fork/Join框架和执行器框架(Executor Framework)非常类似，利用线程池分发执行任务，他们主要的区别在于Fork/Join框架使用了工作窃取算法(Work-Stealing Algorithm)。所谓工作窃取，指的是对那些处理完自身任务的线程，会从其它线程窃取任务执行。
 
 Fork/Join提供的接口很简洁，核心只有三个类/接口，你不需要太多时间关心并行时线程的通信，死锁问题，线程同步
 
@@ -32,6 +32,17 @@ ForkJoinTask几个重要的方法
 * `boolean isDone()`
 * `boolean cancle()`：取消任务，不能取消已经被执行的任务，ForkJoinPool也未提供任务取消线程池中正在运行或等待运行的任务的方法。
 
+
+基本使用方法
+推荐的使用代码结构
+```plain
+if (problem size > default size){
+  tasks  = divide(task); // 将任务一分为二
+  execute(tasks);
+}else{
+  直接执行该任务
+}
+```
 
 下面章节将介绍基本使用
 
