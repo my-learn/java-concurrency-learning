@@ -179,7 +179,7 @@ public class Test {
 改成Account account = new SafetyAccount();
 余额则一直都是10000，这才是正确的。
 
-由此例可以看出AtomicInteger原子类在编写并发程序带来的便利性。
+由此例可以看出AtomicInteger原子类在编写并发程序带来的便利性。如果不用AtomicInteger，那只能synchronized做同步了。
 
 
 
