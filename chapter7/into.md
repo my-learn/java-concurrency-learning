@@ -1,0 +1,8 @@
+java.util.concurrent.atomic原子操作类包提供了一组原子变量类，方便开发人员在多线程环境下，无锁的进行原子操作
+
+java.util.concurrent.atomic中的类可以分成4组
+* 标量类（Scalar）：AtomicBoolean，AtomicInteger，AtomicLong，AtomicReference
+* 数组类：AtomicIntegerArray，AtomicLongArray，AtomicReferenceArray
+* 更新器类：AtomicLongFieldUpdater，AtomicIntegerFieldUpdater，AtomicReferenceFieldUpdater
+* 复合变量类：AtomicMarkableReference，AtomicStampedReference，AtomicStampedReference(解决CAS的ABA问题)
+
