@@ -69,9 +69,5 @@
   * [8.5 executorService停止线程的陷阱](chapter8/executorService-error.md)
   * [8.6 指令重排](chapter8/memory-reordering.md)
   * [8.7 AbstractQueuedSynchronizer](chapter8/AbstractQueuedSynchronizer.md)
-* [第7章 Atomic Variables（原子变量）](chapter7.md)
-  * [7.1 简介](chapter7/into.md)
-  * [7.2 AtomicInteger](chapter7/AtomicInteger.md)
-  * [7.3 原子数组](chapter7/AtomicIntegerArray.md)
 * [说明](notice.md)
 
