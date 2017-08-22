@@ -30,13 +30,6 @@ java.util.concurrent.atomic包中共有12个原子类，可以分成4组
 * compareAndSet( ) 和weakCompareAndSet( )方法：这2个方法接受2个参数，一个是期望数据(expected)，一个是新数据(new)；如果atomic里面的数据和期望数据一 致，则将新数据设定给atomic的数据，返回true，表明成功；否则就不设定，并返回false。
 
 
-AtomicInteger、AtomicLong还提供了一些加法，减法原子操作
-getAndIncrement( )：以原子方式将当前值加 1，相当于线程安全的i++操作。
-incrementAndGet( )：以原子方式将当前值加 1， 相当于线程安全的++i操作。
-getAndDecrement( )：以原子方式将当前值减 1， 相当于线程安全的i--操作。
-decrementAndGet ( )：以原子方式将当前值减 1，相当于线程安全的--i操作。
-addAndGet( )： 以原子方式将给定值与当前值相加， 实际上就是等于线程安全的i =i+delta操作。
-getAndAdd( )：以原子方式将给定值与当前值相加， 相当于线程安全的t=i;i+=delta;return t;操作。
-（注:i++并不是原子操作！）
+
 
  
