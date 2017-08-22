@@ -60,6 +60,7 @@
 * [第7章 原子变量](chapter7.md)
   * [7.1 简介](chapter7/into.md)
   * [7.2 AtomicInteger](chapter7/AtomicInteger.md)
+  * [7.3 AtomicReference](chapter7/AtomicReference.md)
   * [7.3 原子数组](chapter7/AtomicIntegerArray.md)
 * [第8章 实用篇](chapter8.md)
   * [8.1 时间工具类TimeUnit](chapter8/TimeUnit.md)
