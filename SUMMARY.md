@@ -55,6 +55,7 @@
   * [5.8 LinkedTransferQueue](chapter5/LinkedTransferQueue.md)
 * [第6章 Fork/Join框架](chapter6.md)
   * [6.1 简介](chapter6/into.md)
+  * [6.2 RecursiveAction](chapter6/RecursiveAction.md)
 * [第7章 ](chapter7.md)
   * [7.1 简介](chapter7/into.md)
 * [第8章 实用篇](chapter8.md)
