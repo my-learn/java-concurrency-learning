@@ -57,7 +57,7 @@
   * [6.1 简介](chapter6/into.md)
   * [6.2 RecursiveAction](chapter6/RecursiveAction.md)
   * [6.3 RecursiveTask](chapter6/RecursiveTask.md)
-* [第7章 原子变量a](chapter7.md)
+* [第7章 原子变量](chapter7.md)
   * [7.1 简介](chapter7/into.md)
   * [7.2 AtomicInteger](chapter7/AtomicInteger.md)
   * [7.3 原子数组](chapter7/AtomicIntegerArray.md)
