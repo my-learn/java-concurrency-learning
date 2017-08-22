@@ -59,6 +59,7 @@
   * [6.3 RecursiveTask](chapter6/RecursiveTask.md)
 * [第7章 Atomic Variables（原子变量）](chapter7.md)
   * [7.1 简介](chapter7/into.md)
+  * [7.1 AtomicInteger](chapter7/AtomicInteger.md)
 * [第8章 实用篇](chapter8.md)
   * [8.1 时间工具类TimeUnit](chapter8/TimeUnit.md)
   * [8.2 Vector真的是安全的吗？](chapter8/Vector.md)
