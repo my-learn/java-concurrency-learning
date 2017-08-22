@@ -1,8 +1,7 @@
 java.util.concurrent.atomic原子操作类包提供了一组原子变量类，用来实现单个变量的原子操作
 
-原子类其内部实现不是简单的使用synchronized，而是基于Unsafe实现的包装类，核心操作是CAS原子操作，避免了synchronized的高额开销，执行效率大为提升。
-（CAS操作：即compare and swap，指的是将预期值与当前变量的值比较(compare)，如果相等则使用新值替换(swap)当前变量，否则不作操作。CAS是基于硬件实现的锁机制，当然现在的CPU都支持CAS操作）
-
+原子类其内部实现不是简单的使用synchronized，而是基于Unsafe实现的，核心操作是CAS原子操作，避免了synchronized的高额开销，执行效率大为提升。
+** （CAS操作：即compare and swap，指的是将预期值与当前变量的值比较(compare)，如果相等则使用新值替换(swap)当前变量，否则不作操作。CAS是基于硬件实现的锁机制，当然现在的CPU都支持CAS操作）**
 
 摘取一段AtomicInteger的源码
 ```java
@@ -14,16 +13,16 @@ private boolean compareAndSetRaw(long offset, int expect, int update) {
 	return unsafe.compareAndSwapInt(array, offset, expect, update);
 }
 ```
+<br />
 
 
-
-java.util.concurrent.atomic包中共有12个原子类，可以分成4组
+** java.util.concurrent.atomic包中共有12个原子类，可以分成4组 **
 * 简单类型原子变量：AtomicBoolean，AtomicInteger，AtomicLong，AtomicReference
 * 原子数组：AtomicIntegerArray，AtomicLongArray，AtomicReferenceArray
 * 基于反射的更新器：AtomicLongFieldUpdater，AtomicIntegerFieldUpdater，AtomicReferenceFieldUpdater
 * 其他：AtomicMarkableReference，AtomicStampedReference(解决CAS的ABA问题)
 
-原子类通用方法
+** 原子类通用方法 **
 * set( )和get( )方法：可以原子地设定和获取atomic的数据。类似于volatile，保证数据会在主存中设置或读取
 * lazySet()：延时设置变量值
 * getAndSet( )方法 ：虽然get()和set()都是原子操作，但是放在一起执行的时候就是两个操作，并不是原子操作。该方法本质就是get()和set()合并后的原子操作
