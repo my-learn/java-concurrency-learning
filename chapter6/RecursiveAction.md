@@ -31,8 +31,9 @@ public class PrintTask extends RecursiveAction {
 			PrintTask left = new PrintTask(start, middle);
 			PrintTask right = new PrintTask(middle, end);
 			// 并行执行两个小任务
-			left.fork();
-			right.fork();
+			//left.fork();
+			//right.fork();
+			invokeAll(left,right); //跟上面的两行代码是等价的
 		}
 	}
 }
