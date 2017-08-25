@@ -122,6 +122,12 @@ public class CyclicBarrierTest3 {
 CountDownLatch的计数器只能使用一次,而CyclicBarrier是可以被循环使用的，遇到线程中断等情况时，还可以利用reset()方法，重置计数器。所以在某些方面CyclicBarrier会比CountDownLatch使用更加灵活一些
 
 既然CyclicBarrier是循环的计数器，不仅体现在用reset重置上，而且在使用时，自动重置的，什么意思？比如CyclicBarrier初始计数器是3，当调用barrier.await()三次后，所有阻塞线程唤醒，但是你可以再次调用barrier.await()，CyclicBarrier又会从3开始计数。每次到达3后，再下次调用那个await自动从0开始计数。
+
+先演示一下CyclicBarrier的重用
+```java
+
+```
+
 下面看一个经典的旅行团例子来理解这个特性（示例代码来自网络）
 ```java
 package com.gotoback.current;
