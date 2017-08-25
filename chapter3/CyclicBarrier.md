@@ -9,12 +9,12 @@ CyclicBarrier有两个构造函数：
 
 
 # 常用方法
-getParties():获取参与者的数量
+getParties(): 返回要求启动此 barrier 的参与者数目
 await():当前线程等待，知道所有线程到达这个barrier
 await(long timeout, TimeUnit unit)：可以指定一个等待时间
-isBroken():方法用来知道阻塞的线程是否被中断
-reset():将CyclicBarrier重置成初始化状态
-getNumberWaiting():获得CyclicBarrier阻塞的线程数量
+isBroken():查询此屏障是否处于损坏状态
+reset(): 将屏障重置为其初始状态
+getNumberWaiting(): 返回当前在屏障处等待的参与者数目，**只能用于调试**
 
 
 # 示例
@@ -123,10 +123,89 @@ CountDownLatch的计数器只能使用一次,而CyclicBarrier是可以被循环�
 
 既然CyclicBarrier是循环的计数器，不仅体现在用reset重置上，而且在使用时，自动重置的，什么意思？比如CyclicBarrier初始计数器是3，当调用barrier.await()三次后，所有阻塞线程唤醒，但是你可以再次调用barrier.await()，CyclicBarrier又会从3开始计数。每次到达3后，再下次调用那个await自动从0开始计数。
 
-先演示一下CyclicBarrier的重用
+先演示一下CyclicBarrier的重用的示例
 ```java
+import java.util.concurrent.BrokenBarrierException;
+import java.util.concurrent.CyclicBarrier;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
+public class CyclicBarrierTest {
+	// 指定5个参与的parties个数（5个公共屏障点）
+	private static int PARTIES = 5;
+
+	public static void main(String[] args) throws InterruptedException, BrokenBarrierException {
+		final CyclicBarrier barrier = new CyclicBarrier(PARTIES, new Runnable() {
+
+			@Override
+			public void run() {
+				System.out.println("所有线程全部到达barrier...");
+
+			}
+		});
+		ExecutorService executor = Executors.newFixedThreadPool(PARTIES);
+		for (int i = 0; i < PARTIES; i++) {
+			executor.execute(new MyTask(barrier));
+		}
+
+		executor.shutdown();
+	}
+}
+
+class MyTask implements Runnable {
+	private CyclicBarrier barrier;
+
+	public MyTask(CyclicBarrier barrier) {
+		this.barrier = barrier;
+	}
+
+	@Override
+	public void run() {
+		try {
+			Thread.sleep((long) (Math.random() * 5 * 000));
+			System.out.println("线程" + Thread.currentThread().getName() + "到达屏障，当前已有" + barrier.getNumberWaiting()
+					+ "个已经到达");
+			barrier.await();// 到此如果没有达到公共屏障点，则该线程处于等待状态，如果达到公共屏障点则所有处于等待的线程都继续往下运行
+
+			Thread.sleep((long) (Math.random() * 10000));
+			System.out.println("线程" + Thread.currentThread().getName() + "到达屏障，当前已有" + barrier.getNumberWaiting()
+					+ "个已经到达");
+			barrier.await();
+			Thread.sleep((long) (Math.random() * 10000));
+			System.out.println("线程" + Thread.currentThread().getName() + "到达屏障，当前已有" + barrier.getNumberWaiting()
+					+ "个已经到达");
+			barrier.await();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+}
 ```
+打印结果如下：
+```plain 
+线程pool-1-thread-1到达屏障，当前已有0个已经到达
+线程pool-1-thread-2到达屏障，当前已有0个已经到达
+线程pool-1-thread-5到达屏障，当前已有2个已经到达
+线程pool-1-thread-3到达屏障，当前已有2个已经到达
+线程pool-1-thread-4到达屏障，当前已有4个已经到达
+所有线程全部到达barrier...
+线程pool-1-thread-5到达屏障，当前已有0个已经到达
+线程pool-1-thread-1到达屏障，当前已有1个已经到达
+线程pool-1-thread-3到达屏障，当前已有2个已经到达
+线程pool-1-thread-4到达屏障，当前已有3个已经到达
+线程pool-1-thread-2到达屏障，当前已有4个已经到达
+所有线程全部到达barrier...
+线程pool-1-thread-2到达屏障，当前已有0个已经到达
+线程pool-1-thread-3到达屏障，当前已有1个已经到达
+线程pool-1-thread-1到达屏障，当前已有2个已经到达
+线程pool-1-thread-5到达屏障，当前已有3个已经到达
+线程pool-1-thread-4到达屏障，当前已有4个已经到达
+所有线程全部到达barrier...
+```
+可以看到barrier被重用了5次，同时我们还看出一个问题：pool-1-thread-2到达屏障时，怎么已有0个已经到达，应该pool-1-thread-1已经达到了啊？这是因为getNumberWaiting()获取的结果并不准确，这也是为什么getNumberWaiting()只能用于调试
+
 
 下面看一个经典的旅行团例子来理解这个特性（示例代码来自网络）
 ```java
