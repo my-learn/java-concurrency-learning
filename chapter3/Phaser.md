@@ -1,8 +1,11 @@
 `Phaser`是jdk 1.7引入的线程同步辅助类，`Phaser`代表一个可重复使用的同步屏障(barrier)，功能类似`CyclicBarrier`和`CountDownLatch`，但是比他们更强大灵活。
 <br />
 首先解释下这个英文单词的意思，Phase翻译成中文就是阶段的意思。Phaser类机制是在每一个阶段结束的位置对线程进行同步，当所有的线程都该阶段，才能进入下一个阶段。 这个机制刚好说明Phaser侧重在“重用”二字上。
+phase阶段初值为0，当所有的线程执行完本轮任务，同时开始下一轮任务时，意味着当前阶段已结束，进入到下一阶段，phase的值自动加1。
 
 当我们有并发任务并且需要分解成几步执行的时候，这种机制就非常适合。 
+
+
 
 相对于CyclicBarrier CountDownLatch来说，他们都只能在构造时指定成员参与数，而Phaser可以动态的增减参与数。
 
@@ -17,4 +20,12 @@ Phase提供的方法
 * forceTermination()：强制终止。当一个phaser没有参与者的时候，它就处于终止状态，使用forceTermination()方法来强制phaser进入终止状态，不管是否存在未注册的参与线程，当一个线程出现错误时，强制终止phaser是很有意义的。
 
 
+onAdvance
+onAdvance是Phaser的一个重要方法，一般需要被重载，该方法原型
+```java
+protected boolean onAdvance(int phase, int registeredParties)
+```
+该方法作用
+1.当每一个阶段执行完毕，此方法会被自动调用，相当于CyclicBarrier的构造函数中指定的第二个参数Runnable一样的效果
+2.当此方法返回true时，意味着Phaser被终止，因此可以巧妙的设置此方法的返回值来终止所有线程。例如：若此方法返回值为 phase>=3，其含义为当整个线程执行了4个阶段后，程序终止。
 
