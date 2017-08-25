@@ -1,10 +1,23 @@
 CyclicBarrier和CountDownLatch一样，都是线程的计数器
 从字面意思可以把它看成是一个可循环使用的屏障（同步点），它可以让一组线程到达一个公共屏障时，如果还有其他线程未到达屏障，则一直被阻塞，直到最后一个线程到达屏障，屏障才会放行，所有被屏障拦截的线程才会继续干活。
 
+#　构造函数
+CyclicBarrier有两个构造函数：
+第一个初始化时需要传入一个数字参数，表示屏障拦截的线程数量，每个线程调用await方法告诉CyclicBarrier我已经到达了屏障，然后当前线程被阻塞并等待被唤醒。
+第二个初始化时还可以传入一个Runnable的参数， 此Runnable任务在CyclicBarrier的数目达到后，所有其它线程被唤醒前被执行。
 
-CyclicBarrier初始化时需要传入一个数字参数，表示屏障拦截的线程数量，每个线程调用await方法告诉CyclicBarrier我已经到达了屏障，然后当前线程被阻塞并等待被唤醒。
-初始化时还可以传入一个Runnable的参数， 此Runnable任务在CyclicBarrier的数目达到后，所有其它线程被唤醒前被执行。
 
+
+# 常用方法
+getParties():获取参与者的数量
+await():当前线程等待，知道所有线程到达这个barrier
+await(long timeout, TimeUnit unit)：可以指定一个等待时间
+isBroken():方法用来知道阻塞的线程是否被中断
+reset():将CyclicBarrier重置成初始化状态
+getNumberWaiting():获得CyclicBarrier阻塞的线程数量
+
+
+# 示例
 下面看一个基本示例
 ```java
 package com.gotoback.current;
@@ -71,9 +84,7 @@ public class CyclicBarrierTest {
 
 ````
 
-其他方法
-getNumberWaiting：获得CyclicBarrier阻塞的线程数量
-isBroken方法用来知道阻塞的线程是否被中断
+# 演示isBroken()方法的使用
 ```java
 package com.gotoback.current;
 
@@ -107,10 +118,10 @@ public class CyclicBarrierTest3 {
 
 ```
 
-CyclicBarrier和CountDownLatch的区别
+# CyclicBarrier和CountDownLatch的区别
 CountDownLatch的计数器只能使用一次,而CyclicBarrier是可以被循环使用的，遇到线程中断等情况时，还可以利用reset()方法，重置计数器。所以在某些方面CyclicBarrier会比CountDownLatch使用更加灵活一些
 
-既然CyclicBarrier是循环的计数器，不仅体现在用reset重置上，而且在使用时，自动重置的，什么意思？比如CyclicBarrier初始计数器是3，当调用barrier.await()三次后，所有阻塞线程唤醒，但是你可以再次调用barrier.await()，CyclicBarrier又会从3开始计数。每次到达3后，再下次钓鱼那个await自动从0开始计数。
+既然CyclicBarrier是循环的计数器，不仅体现在用reset重置上，而且在使用时，自动重置的，什么意思？比如CyclicBarrier初始计数器是3，当调用barrier.await()三次后，所有阻塞线程唤醒，但是你可以再次调用barrier.await()，CyclicBarrier又会从3开始计数。每次到达3后，再下次调用那个await自动从0开始计数。
 下面看一个经典的旅行团例子来理解这个特性（示例代码来自网络）
 ```java
 package com.gotoback.current;
