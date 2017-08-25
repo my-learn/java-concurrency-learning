@@ -5,7 +5,6 @@ phase阶段初值为0，当所有的线程执行完本轮任务，同时开始�
 
 当我们有并发任务并且需要分解成几步执行的时候，这种机制就非常适合。 
 
-
 相对于CyclicBarrier CountDownLatch来说，他们都只能在构造时指定成员参与数，而Phaser可以动态的添加或删除参与者。
 
 # 构造函数
@@ -20,7 +19,7 @@ phase阶段初值为0，当所有的线程执行完本轮任务，同时开始�
 * register():将一个新的参与者(party)注册到phase中，parties个数加一，这个新的参与者将被当成没有执完本阶段的线程。如果此时onAdvance方法正在执行，此方法将会等待它执行完毕后才会返回。此方法返回当前的phase周期数，如果Phaser已经中断，将会返回负数。
 * bulkRegister(int parties)：跟register一样，只是可以注册多个party
 
-* arrive()：参与者已经到达该phaser阶段，不需要该等待其他参与者都完成当前阶段。如果没有register（即已register数量为0），调用此方法将会抛出异常，此方法返回当前phase周期数，如果Phaser已经终止，则返回负数。必须小心使用这个方法，因为它不会与其他线程同步。
+* arrive()：参与者已经到达该phaser阶段，不需要该等待其他参与者都完成当前阶段，即该方法非阻塞的。如果没有register（即已register数量为0），调用此方法将会抛出异常，此方法返回当前phase周期数，如果Phaser已经终止，则返回负数。必须小心使用这个方法，因为它不会与其他线程同步。
 * arriveAndDeregister():参与者已经到达该phaser阶段，并且减少参与者即parties个数减一，不需要该等待其他参与者都完成当前阶段。
 * arriveAndAwaitAdvance()：参与者已经到达该phaser阶段，并且并等待其他参与者，才开始运行下面的代码。该方法等同于awaitAdvance(arrive());的效果
 
@@ -46,5 +45,122 @@ protected boolean onAdvance(int phase, int registeredParties)
 该方法作用
 1.当每一个阶段执行完毕，此方法会被自动调用，相当于CyclicBarrier的构造函数中指定的第二个参数Runnable一样的效果
 2.当此方法返回true时，意味着Phaser被终止（此后将会把Phaser的状态为termination，即isTermination()将返回true），否则可以继续进行。phase参数表示当前周期数，registeredParties表示当前已经注册的parties个数。
-默认实现为：return registeredParties == 0; 一般开发时可以重写此方法，达到终止所有线程的目的。例如：若此方法返回值为 phase>=3，其含义为当整个线程执行了4个阶段后，程序终止。
+默认实现为：return registeredParties == 0; 一般开发时可以重写此方法，控制线程是否终止
+
+
+# 示例
+先看一个最简单的示例，只有一个阶段同步
+```java
+import java.util.Random;
+import java.util.concurrent.Phaser;
+
+public class PhaserTest1 {
+	// 参与的parties个数  
+	private static int PARTIES = 3;
+	
+	public static void main(String[] args) throws InterruptedException {
+		Phaser phaser = new Phaser(PARTIES);
+		for (int i = 0; i < PARTIES; i++) {
+			new MyThread(phaser).start();
+		}
+	}
+
+}
+
+class MyThread extends Thread {
+	private Phaser phaser;
+
+	public MyThread(Phaser phaser) {
+		this.phaser = phaser;
+	}
+
+	@Override
+	public void run() {
+		System.out.println(Thread.currentThread().getName() + "任务开始工作");
+		int workTime = new Random().nextInt(10-3+1)+3;//随机3-10秒，方便看效果
+		try {
+			Thread.sleep(workTime * 1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		System.out.println(Thread.currentThread().getName() + "任务处理完成，耗时"+workTime+"秒， 等待其他任务执行完成 ");
+		// 等待其他任务执行完成，这儿会阻塞
+		phaser.arriveAndAwaitAdvance();
+		System.out.println(Thread.currentThread().getName() + " 进入下一阶段，如果没有下一阶段则结束 ");
+	}
+}
+```
+打印结果：
+```plain
+Thread-0任务开始工作
+Thread-2任务开始工作
+Thread-1任务开始工作
+Thread-0任务处理完成，耗时3秒， 等待其他任务执行完成 
+Thread-2任务处理完成，耗时6秒， 等待其他任务执行完成 
+Thread-1任务处理完成，耗时8秒， 等待其他任务执行完成 
+Thread-0 进入下一阶段，如果没有下一阶段则结束 
+Thread-2 进入下一阶段，如果没有下一阶段则结束 
+Thread-1 进入下一阶段，如果没有下一阶段则结束 
+```
+
+下面演示3个阶段同步
+```java
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Phaser;
+
+public class PhaserTest2 {
+	// 指定参与的parties个数
+	private static int PAETIES = 5;
+
+	public static void main(String[] args) {
+		// 可以在创建时不指定parties,而是在运行时，随时注册和注销新的parties
+		final Phaser phaser = new Phaser();
+		ExecutorService executor = Executors.newFixedThreadPool(PAETIES);
+		for (int i = 0; i < PAETIES; i++) {
+			phaser.register();// 每创建一个线程任务，我们就注册一个party
+			executor.execute(new Runnable() {
+				@Override
+				public void run() {
+					try {
+						int i = 0;
+						// 运行三个阶段
+						while (i < 3 && !phaser.isTerminated()) {
+							System.out.println(Thread.currentThread().getName() + "到达 phase:" + phaser.getPhase());
+							Thread.sleep(1000);
+							// 等待同一阶段内其他Task到达，才可以进入新的阶段
+							phaser.arriveAndAwaitAdvance();
+							i++;
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					} finally {
+						phaser.arriveAndDeregister();
+					}
+				}
+			});
+		}
+		
+		executor.shutdown();
+	}
+}
+```
+打印结果:
+```java
+pool-1-thread-1到达 phase:0
+pool-1-thread-2到达 phase:0
+pool-1-thread-5到达 phase:0
+pool-1-thread-3到达 phase:0
+pool-1-thread-4到达 phase:0
+pool-1-thread-4到达 phase:1
+pool-1-thread-3到达 phase:1
+pool-1-thread-5到达 phase:1
+pool-1-thread-1到达 phase:1
+pool-1-thread-2到达 phase:1
+pool-1-thread-2到达 phase:2
+pool-1-thread-3到达 phase:2
+pool-1-thread-1到达 phase:2
+pool-1-thread-4到达 phase:2
+pool-1-thread-5到达 phase:2
+```
 
