@@ -1,6 +1,6 @@
 `Phaser`是jdk 1.7引入的线程同步辅助类，`Phaser`代表一个可重复使用的同步屏障(barrier)，功能类似`CyclicBarrier`和`CountDownLatch`，但是比他们更强大灵活。
 <br />
-首先解释下这个英文单词的意思，Phase翻译成中文就是阶段的意思。Phaser类机制是在每一个阶段结束的位置对线程进行同步，当所有的线程都该阶段，才能进入下一个阶段。 这个机制刚好说明Phaser侧重在“重用”二字上。
+首先解释下这个英文单词的意思，Phase翻译成中文就是阶段的意思。Phaser类机制是在每一个阶段结束的时候对线程进行同步，当所有的线程都到达该阶段，才能进入下一个阶段。 这个机制刚好说明Phaser侧重在“重用”二字上。
 phase阶段初值为0，当所有的线程执行完本轮任务，同时开始下一轮任务时，意味着当前阶段已结束，进入到下一阶段，phase的值自动加1。
 
 当我们有并发任务并且需要分解成几步执行的时候，这种机制就非常适合。 
@@ -21,7 +21,7 @@ phase阶段初值为0，当所有的线程执行完本轮任务，同时开始�
 
 * arrive()：参与者已经到达该phaser阶段，不需要该等待其他参与者都完成当前阶段，即该方法非阻塞的。如果没有register（即已register数量为0），调用此方法将会抛出异常，此方法返回当前phase周期数，如果Phaser已经终止，则返回负数。必须小心使用这个方法，因为它不会与其他线程同步。
 * arriveAndDeregister():参与者已经到达该phaser阶段，并且减少参与者即parties个数减一，不需要该等待其他参与者都完成当前阶段。
-* arriveAndAwaitAdvance()：参与者已经到达该phaser阶段，并且并等待其他参与者，才开始运行下面的代码。该方法等同于awaitAdvance(arrive());的效果
+* arriveAndAwaitAdvance()：参与者已经到达该phaser阶段，并且并等待其他参与者到达，才开始运行下面的代码。该方法等同于awaitAdvance(arrive());的效果
 
 * awaitAdvance(int phase)：如果传入的阶段参数与当前阶段一致，这个方法会将当前线程至于休眠，直到这个阶段的所有参与者都运行完成。如果传入的阶段参数与当前阶段不一致，这个方法立即返回。
 * awaitAdvanceInterruptibly(int phaser):这个方法跟awaitAdvance(int phase)一样，不同处是：该访问将会响应线程中断。会抛出interruptedException异常。
@@ -38,14 +38,15 @@ phase阶段初值为0，当所有的线程执行完本轮任务，同时开始�
 
 
 #　onAdvance
-onAdvance是Phaser的一个重要方法，可以被重载。该方法原型
+onAdvance是Phaser的一个重要方法，可以被重载。该方法源代码如下
 ```java
-protected boolean onAdvance(int phase, int registeredParties)
+protected boolean onAdvance(int phase, int registeredParties) {
+	return registeredParties == 0;
+}
 ```
-该方法作用
-1.当每一个阶段执行完毕，此方法会被自动调用，相当于CyclicBarrier的构造函数中指定的第二个参数Runnable一样的效果
-2.当此方法返回true时，意味着Phaser被终止（此后将会把Phaser的状态为termination，即isTermination()将返回true），否则可以继续进行。phase参数表示当前周期数，registeredParties表示当前已经注册的parties个数。
-默认实现为：return registeredParties == 0; 一般开发时可以重写此方法，控制线程是否终止
+该方法默认的实现是在参与者数量为0的时候，返回true，表示该phaser状态为终止状态（isTermination()将返回true）。该方法在phaser阶段改变的时候会自动执行，相当于CyclicBarrier的构造函数中指定的第二个参数Runnable一样的效果。
+这有两个参数phase表示当前阶段数，registeredParties表示注册的参与者数量。
+
 
 
 # 示例
