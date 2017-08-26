@@ -165,3 +165,172 @@ pool-1-thread-4到达 phase:2
 pool-1-thread-5到达 phase:2
 ```
 
+再演示一个多阶段同步的示例
+```java
+import java.util.concurrent.Phaser;
+import java.util.concurrent.TimeUnit;
+
+public class PhaserTest3 {
+
+	private static int PAETIES = 3;
+
+	public static void main(String[] args) throws InterruptedException {
+		final Phaser phaser = new Phaser(PAETIES);
+		for (int i = 0; i < PAETIES; i++) {
+			TimeUnit.SECONDS.sleep(1);
+			Thread t = new Thread(new MyThread(phaser));
+			t.start();
+		}
+
+	}
+
+	static class MyThread implements Runnable {
+		private Phaser phaser;
+
+		public MyThread(Phaser phaser) {
+			this.phaser = phaser;
+		}
+
+		@Override
+		public void run() {
+			System.out.printf("当前阶段%s-->当前线程%s\n", phaser.getPhase(), Thread.currentThread().getName());
+			phaser.arriveAndAwaitAdvance();// 等待所有参与者完成当前阶段
+			System.out.printf("当前阶段%s-->当前线程%s\n", phaser.getPhase(), Thread.currentThread().getName());
+			phaser.arriveAndAwaitAdvance();// 等待所有参与者完成当前阶段
+			System.out.printf("当前阶段%s-->当前线程%s\n", phaser.getPhase(), Thread.currentThread().getName());
+			phaser.arriveAndDeregister();// 注销当前线程
+
+		}
+
+	}
+}
+```
+打印结果
+```plain
+当前阶段0-->当前线程Thread-0
+当前阶段0-->当前线程Thread-1
+当前阶段0-->当前线程Thread-2
+当前阶段1-->当前线程Thread-2
+当前阶段1-->当前线程Thread-0
+当前阶段1-->当前线程Thread-1
+当前阶段2-->当前线程Thread-1
+当前阶段2-->当前线程Thread-0
+当前阶段2-->当前线程Thread-2
+```
+
+最后举一个使用onAdvance的示例
+有3个人争选驸马，公主决定准备3个比赛，来考验这三个人，下面我们就模拟这个这个场景。
+这个场景有需要注意的地方，就是第一个比赛，必须要等三个人都完成了得出了结果才能开始下一个比赛
+```java
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.Phaser;
+
+public class PhaserTest4 {
+	private static int PARTIES = 3;
+	
+	public static void main(String[] args) throws InterruptedException {
+		final Phaser phaser = new Phaser(PARTIES){
+			@Override
+			protected boolean onAdvance(int phase, int registeredParties) {
+				if(registeredParties == 0){ //参与者为0，则当前phaser可以终止了
+					System.out.println("三场比赛已结束！！！");
+					return true;
+				} else {
+					switch(phase){
+					case 0:
+						System.out.println("第一场比赛结束！");
+						return false;
+					case 1:
+						System.out.println("第二场比赛结束！");
+						return false;
+					case 2:
+						System.out.println("第三场比赛结束！");
+						return false;
+							
+					}
+				}
+				return super.onAdvance(phase, registeredParties);
+			}
+		};
+		List<Thread> list = new ArrayList<Thread>(PARTIES);
+		
+		for (int i = 0; i < PARTIES; i++) {
+			Thread t = new Thread(new Prince(i+"号白马王子",phaser));
+			list.add(t);
+			t.start();
+		}
+		
+		for(Thread t : list){
+			t.join();
+		}
+		
+		System.out.println("phaser最终状态："+phaser.isTerminated());
+	}
+	
+	static class Prince implements Runnable {
+		private String name;
+		private Phaser phaser ;
+		
+		public Prince(String name,Phaser phaser){
+			this.name = name;
+			this.phaser = phaser;
+		}
+
+		@Override
+		public void run() {
+			match(1);
+			match(2);
+			match(3);
+		}
+		
+		private void match(int matchNo){
+			System.out.printf("%s参加第%d项比赛\n",name,matchNo);
+			int workTime = new Random().nextInt(10-3+1)+3;//随机3-10秒，方便看效果
+			try {
+				Thread.sleep(workTime * 1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			System.out.printf("%s完成第%d项比赛，耗时%d秒\n",name,matchNo,workTime);
+			
+			if(matchNo==3){ //最后一个比赛完成，取消线程
+				phaser.arriveAndDeregister();
+			} else {
+				phaser.arriveAndAwaitAdvance();//等待其他人完成比赛
+			}
+		}
+		
+	}
+}
+```
+打印结果如下：
+```plain
+0号白马王子参加第1项比赛
+1号白马王子参加第1项比赛
+2号白马王子参加第1项比赛
+1号白马王子完成第1项比赛，耗时6秒
+2号白马王子完成第1项比赛，耗时8秒
+0号白马王子完成第1项比赛，耗时9秒
+第一场比赛结束！
+2号白马王子参加第2项比赛
+1号白马王子参加第2项比赛
+0号白马王子参加第2项比赛
+0号白马王子完成第2项比赛，耗时5秒
+2号白马王子完成第2项比赛，耗时6秒
+1号白马王子完成第2项比赛，耗时8秒
+第二场比赛结束！
+0号白马王子参加第3项比赛
+2号白马王子参加第3项比赛
+1号白马王子参加第3项比赛
+0号白马王子完成第3项比赛，耗时5秒
+1号白马王子完成第3项比赛，耗时9秒
+2号白马王子完成第3项比赛，耗时10秒
+三场比赛已结束！！！
+phaser最终状态：true
+```
+
+
+
+
