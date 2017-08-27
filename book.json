@@ -4,6 +4,6 @@
     },
     "plugins": [
         "-search",
-        "-sharding"
+        "-sharing"
     ]
 }
