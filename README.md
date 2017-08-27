@@ -65,6 +65,5 @@
   * [6.5 executorService停止线程的陷阱](chapter6/executorService-error.md)
   * [6.6 指令重排](chapter6/memory-reordering.md)
   * [6.7 AbstractQueuedSynchronizer](chapter6/AbstractQueuedSynchronizer.md)
-* [学习资源](learning-resources.md)
 * [说明](notice.md)
 
