@@ -1,5 +1,9 @@
 {
     "pdf": {
         "fontSize": 14
-    }
+    },
+    "plugins": [
+        "-search",
+        "-sharding"
+    ]
 }
