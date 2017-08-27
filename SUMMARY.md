@@ -65,7 +65,7 @@
 * [第8章 实用篇](chapter8.md)
   * [8.1 时间工具类TimeUnit](chapter8/TimeUnit.md)
   * [8.2 volatile](chapter8/volatile.md)
-* [说明](notice.md)
+
 * [第9章 深入篇](chapter9.md)
   * [9.1 指令重排 and 多级存储](chapter9/memory-reordering.md)
   * [9.2 CAS](chapter9/cas.md)
@@ -73,6 +73,8 @@
   * [9.4 Vector真的是安全的吗？](chapter9/Vector.md)
   * [9.5 Servlet的多线程同步问题](chapter9/Servlet.md)
   * [9.6 executorService停止线程的陷阱](chapter9/executorService-error.md)
+* [说明](notice.md)
+
 
 
 
