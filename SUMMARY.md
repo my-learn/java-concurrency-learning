@@ -69,6 +69,7 @@
   * [8.4 volatile](chapter8/volatile.md)
   * [8.5 executorService停止线程的陷阱](chapter8/executorService-error.md)
   * [8.6 指令重排 and 多级存储](chapter8/memory-reordering.md)
-  * [8.7 AbstractQueuedSynchronizer](chapter8/AbstractQueuedSynchronizer.md)
+  * [8.7 CAS](chapter8/cas.md)
+  * [8.8 AbstractQueuedSynchronizer](chapter8/AbstractQueuedSynchronizer.md)
 * [说明](notice.md)
 
