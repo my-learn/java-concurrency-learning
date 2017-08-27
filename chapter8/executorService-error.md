@@ -7,3 +7,5 @@
 
 比如创建了ScheduledExecutorService的定时任务，就会导致jvm不会退出，正确的退出容器方式应该是在系统停止前调用shutdown/shutdownNow方法
 
+还需要注意，调用ExecutorService#shutdown方法，如果task还未执行完，调用该方法后，jvm并不会退出
+
