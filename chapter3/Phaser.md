@@ -50,7 +50,7 @@ protected boolean onAdvance(int phase, int registeredParties) {
 
 
 # 示例
-先看一个最简单的示例，只有一个阶段同步
+先看一个最简单的示例，通过Phaser控制多个线程的同步时机
 ```java
 import java.util.Random;
 import java.util.concurrent.Phaser;
@@ -103,8 +103,11 @@ Thread-0 进入下一阶段，如果没有下一阶段则结束
 Thread-2 进入下一阶段，如果没有下一阶段则结束 
 Thread-1 进入下一阶段，如果没有下一阶段则结束 
 ```
+通过查看arriveAndAwaitAdvance()源码可以知道该方法不会抛出异常，如果在等待时希望可中断，或者可超时，可以使用awaitAdvanceInterruptibly方法代替
 
-下面演示3个阶段同步
+
+
+前面的示例只有一个阶段同步，下面演示3个阶段同步
 ```java
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -164,6 +167,11 @@ pool-1-thread-1到达 phase:2
 pool-1-thread-4到达 phase:2
 pool-1-thread-5到达 phase:2
 ```
+
+在某些外部条件满足时，才真正开始任务的执行
+用CountDownLatch能够实现该场景，不过我们现在使用Phaser实现
+
+
 
 再演示一个多阶段同步的示例
 ```java
