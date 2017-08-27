@@ -19,7 +19,6 @@
   * [1.7 线程组](chapter1/ThreadGroup.md)
   * [1.8 多线程中访问成员变量与局部变量](chapter1/1-7.md)
   * [1.9 线程间的通信-wait及notify方法](chapter1/wait-notify.md)
-  * [1.10 ThreadLocal类](chapter1/ThreadLocal.md)
 * [第2章 多线程同步](chapter2.md)
   * [2.1 简介](chapter2/intro.md)
   * [2.2 锁的相关概念介绍](chapter2/Lock-concepts.md)
@@ -30,7 +29,7 @@
   * [2.7 修改锁的公平性](chapter2/lock-fair.md)
   * [2.8 Lock和synchronized的选择](chapter2/Lock-vs-synchronized.md)
   * [2.9 LockSupport](chapter2/LockSupport.md)
-  * [2.10 在锁中使用多条件(Condition)](chapter2/Condition.md)
+  * [2.10 在锁中使用多条件\(Condition\)](chapter2/Condition.md)
 * [第3章 线程同步辅助类](chapter3.md)
   * [3.1 简介](chapter3/intro.md)
   * [3.2 信号量Semaphore](chapter3/Semaphore.md)
@@ -57,13 +56,33 @@
   * [5.6 CopyOnWrite机制实现](chapter5/5-6.md)
   * [5.7 支持排序的并发集合](chapter5/5-7.md)
   * [5.8 LinkedTransferQueue](chapter5/LinkedTransferQueue.md)
-* [第6章 实用篇](chapter6.md)
-  * [6.1 时间工具类TimeUnit](chapter6/TimeUnit.md)
-  * [6.2 Vector真的是安全的吗？](chapter6/Vector.md)
-  * [6.3 Servlet的多线程同步问题](chapter6/Servlet.md)
-  * [6.4 volatile](chapter6/volatile.md)
-  * [6.5 executorService停止线程的陷阱](chapter6/executorService-error.md)
-  * [6.6 指令重排](chapter6/memory-reordering.md)
-  * [6.7 AbstractQueuedSynchronizer](chapter6/AbstractQueuedSynchronizer.md)
+* [第6章 Fork/Join框架](chapter6.md)
+  * [6.1 简介](chapter6/into.md)
+  * [6.2 RecursiveAction](chapter6/RecursiveAction.md)
+  * [6.3 RecursiveTask](chapter6/RecursiveTask.md)
+* [第7章 原子变量](chapter7.md)
+  * [7.1 简介](chapter7/into.md)
+  * [7.2 AtomicInteger](chapter7/AtomicInteger.md)
+  * [7.3 AtomicReference](chapter7/AtomicReference.md)
+  * [7.4 原子数组](chapter7/AtomicIntegerArray.md)
+* [第8章 实用篇](chapter8.md)
+  * [8.1 时间工具类TimeUnit](chapter8/TimeUnit.md)
+  * [8.2 volatile](chapter8/volatile.md)
+  * [1.10 ThreadLocal类](chapter9/ThreadLocal.md)
+* [第9章 深入篇](chapter9.md)
+  * [9.1 指令重排 and 多级存储](chapter9/memory-reordering.md)
+  * [9.2 CAS](chapter9/cas.md)
+  * [9.3 AbstractQueuedSynchronizer](chapter9/AbstractQueuedSynchronizer.md)
+  * [9.4 Vector真的是安全的吗？](chapter9/Vector.md)
+  * [9.5 Servlet的多线程同步问题](chapter9/Servlet.md)
+  * [9.6 executorService停止线程的陷阱](chapter9/executorService-error.md)
 * [说明](notice.md)
+
+
+
+
+
+
+
+
 
