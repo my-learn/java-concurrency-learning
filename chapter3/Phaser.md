@@ -19,8 +19,8 @@ phase阶段初值为0，当所有的线程执行完本轮任务，同时开始�
 * register():将一个新的参与者(party)注册到phase中，parties个数加一，这个新的参与者将被当成没有执完本阶段的线程。如果此时onAdvance方法正在执行，此方法将会等待它执行完毕后才会返回。此方法返回当前的phase周期数，如果Phaser已经中断，将会返回负数。
 * bulkRegister(int parties)：跟register一样，只是可以注册多个party
 
-* arrive()：参与者已经到达该phaser阶段，不需要该等待其他参与者都完成当前阶段，即该方法非阻塞的。如果没有register（即已register数量为0），调用此方法将会抛出异常，此方法返回当前phase周期数，如果Phaser已经终止，则返回负数。必须小心使用这个方法，因为它不会与其他线程同步。
-* arriveAndDeregister():参与者已经到达该phaser阶段，并且减少参与者即parties个数减一，不需要该等待其他参与者都完成当前阶段。
+* arrive()：参与者已经到达该phaser阶段，不需要该等待其他参与者都完成当前阶段（非阻塞）。如果没有register（即已register数量为0），调用此方法将会抛出异常，此方法返回当前phase周期数，如果Phaser已经终止，则返回负数。必须小心使用这个方法，因为它不会与其他线程同步。
+* arriveAndDeregister():参与者已经到达该phaser阶段，并且减少参与者即parties个数减一，不需要该等待其他参与者都完成当前阶段（非阻塞）。
 * arriveAndAwaitAdvance()：参与者已经到达该phaser阶段，并且并等待其他参与者到达，才开始运行下面的代码。该方法等同于awaitAdvance(arrive());的效果
 
 * awaitAdvance(int phase)：如果传入的阶段参数与当前阶段一致，这个方法会将当前线程至于休眠，直到这个阶段的所有参与者都运行完成。如果传入的阶段参数与当前阶段不一致，这个方法立即返回。
@@ -168,10 +168,6 @@ pool-1-thread-4到达 phase:2
 pool-1-thread-5到达 phase:2
 ```
 
-在某些外部条件满足时，才真正开始任务的执行
-用CountDownLatch能够实现该场景，不过我们现在使用Phaser实现
-
-
 
 再演示一个多阶段同步的示例
 ```java
@@ -225,6 +221,141 @@ public class PhaserTest3 {
 当前阶段2-->当前线程Thread-0
 当前阶段2-->当前线程Thread-2
 ```
+
+外部条件控制任务的执行
+用CountDownLatch能够实现该场景，不过我们现在使用Phaser实现
+```java
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.concurrent.Phaser;
+
+public class PhaserTest5 {
+
+	public static void main(String args[]) throws Exception {
+		final Phaser phaser = new Phaser(1); //用于控制主线程等待用户输入
+		for (int i = 0; i < 5; i++) { 
+			System.out.println("启动线程,id:" + i);
+			phaser.register(); //动态注册任务
+			final Thread thread = new Thread(new Task(i, phaser));
+			thread.start();
+		}
+
+		System.out.println("按回车键盘继续...");
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		reader.readLine();
+		phaser.arriveAndDeregister();
+	}
+
+	public static class Task implements Runnable {
+		private final int id;
+		private final Phaser phaser;
+
+		public Task(int id, Phaser phaser) {
+			this.id = id;
+			this.phaser = phaser;
+		}
+
+		@Override
+		public void run() {
+			phaser.arriveAndAwaitAdvance();
+			System.out.println("开始执行run方法, phase:" + phaser.getPhase() + ", id:" + this.id);
+		}
+	}
+}
+```
+在该示例中，当用户按下回车之后，任务才会真正继续开始执行。
+
+
+主线程等待子线程线程才结束
+这个需求最简单的话就用thread join()方法，这里使用Phaser实现
+```java
+import java.util.concurrent.Phaser;
+
+public class PhaserTest6 {
+
+	public static void main(String args[]) throws Exception {
+		final int count = 5;
+		final int phaseToTerminate = 3;
+		final Phaser phaser = new Phaser(count) {
+			@Override
+			protected boolean onAdvance(int phase, int registeredParties) {
+				System.out.println("====== " + phase + " ======");
+				return phase == phaseToTerminate || registeredParties == 0;
+			}
+		};
+
+		for (int i = 0; i < count; i++) {
+			System.out.println("启动线程,id:" + i);
+			final Thread thread = new Thread(new Task(i, phaser));
+			thread.start();
+		}
+
+		phaser.register();
+		while (!phaser.isTerminated()) {
+			phaser.arriveAndAwaitAdvance();
+		}
+		System.out.println("done");
+	}
+
+	private static class Task implements Runnable {
+		private final int id;
+		private final Phaser phaser;
+
+		public Task(int id, Phaser phaser) {
+			this.id = id;
+			this.phaser = phaser;
+		}
+
+		@Override
+		public void run() {
+			while (!phaser.isTerminated()) {
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				System.out.println("开始执行run方法, phase:" + phaser.getPhase() + ", id:" + this.id);
+				phaser.arriveAndAwaitAdvance();
+			}
+		}
+	}
+}
+```
+打印结果如下：
+```plain
+启动线程,id:0
+启动线程,id:1
+启动线程,id:2
+启动线程,id:3
+启动线程,id:4
+开始执行run方法, phase:0, id:3
+开始执行run方法, phase:0, id:2
+开始执行run方法, phase:0, id:4
+开始执行run方法, phase:0, id:1
+开始执行run方法, phase:0, id:0
+====== 0 ======
+开始执行run方法, phase:1, id:0
+开始执行run方法, phase:1, id:2
+开始执行run方法, phase:1, id:3
+开始执行run方法, phase:1, id:4
+开始执行run方法, phase:1, id:1
+====== 1 ======
+开始执行run方法, phase:2, id:4
+开始执行run方法, phase:2, id:2
+开始执行run方法, phase:2, id:0
+开始执行run方法, phase:2, id:1
+开始执行run方法, phase:2, id:3
+====== 2 ======
+开始执行run方法, phase:3, id:3
+开始执行run方法, phase:3, id:1
+开始执行run方法, phase:3, id:4
+开始执行run方法, phase:3, id:0
+开始执行run方法, phase:3, id:2
+====== 3 ======
+done
+
+```
+
 
 最后举一个使用onAdvance的示例
 有3个人争选驸马，公主决定准备3个比赛，来考验这三个人，下面我们就模拟这个这个场景。
