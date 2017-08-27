@@ -19,6 +19,7 @@
   * [1.7 线程组](chapter1/ThreadGroup.md)
   * [1.8 多线程中访问成员变量与局部变量](chapter1/1-7.md)
   * [1.9 线程间的通信-wait及notify方法](chapter1/wait-notify.md)
+  * [1.10 ThreadLocal类](chapter1/ThreadLocal.md)
 * [第2章 多线程同步](chapter2.md)
   * [2.1 简介](chapter2/intro.md)
   * [2.2 锁的相关概念介绍](chapter2/Lock-concepts.md)
@@ -68,7 +69,7 @@
 * [第8章 实用篇](chapter8.md)
   * [8.1 时间工具类TimeUnit](chapter8/TimeUnit.md)
   * [8.2 volatile](chapter8/volatile.md)
-  * [1.10 ThreadLocal类](chapter9/ThreadLocal.md)
+
 * [第9章 深入篇](chapter9.md)
   * [9.1 指令重排 and 多级存储](chapter9/memory-reordering.md)
   * [9.2 CAS](chapter9/cas.md)
@@ -77,6 +78,15 @@
   * [9.5 Servlet的多线程同步问题](chapter9/Servlet.md)
   * [9.6 executorService停止线程的陷阱](chapter9/executorService-error.md)
 * [说明](notice.md)
+
+
+
+
+
+
+
+
+
 
 
 
