@@ -20,7 +20,7 @@ private boolean compareAndSetRaw(long offset, int expect, int update) {
 * 简单类型原子变量：AtomicBoolean，AtomicInteger，AtomicLong，AtomicReference
 * 原子数组：AtomicIntegerArray，AtomicLongArray，AtomicReferenceArray
 * 基于反射的更新器：AtomicLongFieldUpdater，AtomicIntegerFieldUpdater，AtomicReferenceFieldUpdater
-* 其他：AtomicMarkableReference，AtomicStampedReference(解决CAS的ABA问题)
+* 解决CAS的ABA问题：AtomicMarkableReference，AtomicStampedReference
 
 ** 原子类通用方法 **
 * set( )和get( )方法：可以原子地设定和获取atomic的数据。类似于volatile，保证数据会在主存中设置或读取

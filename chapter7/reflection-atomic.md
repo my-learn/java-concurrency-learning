@@ -1,6 +1,7 @@
 如果我们只需要某个类里的某个字段，那么就需要使用原子更新字段类。
     
 atomic包提供了AtomicLongFieldUpdater、AtomicIntegerFieldUpdater、AtomicReferenceFieldUpdater 3个基于反射的实用工具，可以对指定类的指定 volatile 字段进行原子更新，使用上跟AtomicInteger差不多。
+如果需要跟新多个字段，则需要定义多个AtomicIntegerFieldUpdater，因为一个AtomicIntegerFieldUpdater代表了更新一个字段。
 
 使用上的约束：
 * 字段必须是public volatile
