@@ -1,0 +1,10 @@
+ABA问题可以先自行百度。
+
+atomic包中提供的两个类AtomicMarkableReference、AtomicStampedReference用来解决ABA问题的
+
+AtomicMarkableReference通过内部一个&lt; reference,int&gt;结构实现的，可用于表示与否的状态;
+AtomicStampedReference通过内部一个&lt; reference,int&gt;结构实现的，可用来作为带版本号的原子引用;
+
+其实AtomicStampedReference完全可以代替AtomicMarkableReference，但是AtomicMarkableReference是用boolean表示状态与否变化，更符合语义点。
+
+
