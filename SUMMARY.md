@@ -62,6 +62,7 @@
   * [7.2 AtomicInteger](chapter7/AtomicInteger.md)
   * [7.3 AtomicReference](chapter7/AtomicReference.md)
   * [7.4 原子数组](chapter7/AtomicIntegerArray.md)
+  * [7.5 反射更新器](chapter7/reflection.md)
 * [第8章 实用篇](chapter8.md)
   * [8.1 时间工具类TimeUnit](chapter8/TimeUnit.md)
   * [8.2 volatile](chapter8/volatile.md)
