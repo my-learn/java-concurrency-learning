@@ -1,6 +1,7 @@
 《java并发编程学习手册》本书主要介绍java多线程编程基础，以及java并发库的使用，涉及到的知识点尽量做到简单、全面。同时，不会将非相关的类容涵盖进来而占用篇幅
 
 github: <https://github.com/sainne/java-concurrency-learning>
+
 在线阅读: <http://www.sainne.com/java-concurrency-learning/>
      
 ---
