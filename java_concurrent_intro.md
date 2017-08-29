@@ -7,7 +7,7 @@ API手册：http://gee.cs.oswego.edu/dl/jsr166/dist/docs/
 [Doug Lea维护的blog](http://g.oswego.edu/dl/concurrency-interest/)
 
 先上图Doug Lea大神，来膜拜一下
-![](/Doug Lea.jpg)
+![](/Doug_Lea.jpg)
 
 
 并发库结构图（来自网络）
