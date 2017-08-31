@@ -70,6 +70,8 @@ github: <https://github.com/sainne/java-concurrency-learning>
   * [7.2 AtomicInteger](chapter7/AtomicInteger.md)
   * [7.3 AtomicReference](chapter7/AtomicReference.md)
   * [7.4 原子数组](chapter7/AtomicIntegerArray.md)
+  * [7.5 反射更新器](chapter7/reflection-atomic.md)
+  * [7.6 atomic解决ABA问题](chapter7/atomic-aba.md)
 * [第8章 实用篇](chapter8.md)
   * [8.1 时间工具类TimeUnit](chapter8/TimeUnit.md)
   * [8.2 volatile](chapter8/volatile.md)
@@ -82,21 +84,4 @@ github: <https://github.com/sainne/java-concurrency-learning>
   * [9.5 Servlet的多线程同步问题](chapter9/Servlet.md)
   * [9.6 executorService停止线程的陷阱](chapter9/executorService-error.md)
 * [说明](notice.md)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
