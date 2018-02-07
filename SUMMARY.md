@@ -39,6 +39,7 @@
   * [4.2 Executor接口](chapter4/4-2.md)
   * [4.3 ExecutorService接口](chapter4/4-3.md)
   * [4.4 ScheduledExecutorService接口](chapter4/4-4.md)
+  * [4.4 ScheduledThreadPoolExecutor类](chapter4/4-4-1.md)
   * [4.5 Executors静态工厂方法](chapter4/4-5.md)
   * [4.6 ThreadPoolExecutor ](chapter4/4-6.md)
   * [4.7 可以返回结果的线程](chapter4/4-7.md)
