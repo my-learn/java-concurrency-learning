@@ -44,6 +44,7 @@
   * [4.6 ThreadPoolExecutor ](chapter4/4-6.md)
   * [4.7 可以返回结果的线程](chapter4/4-7.md)
   * [4.7 ScheduledFuture接口](chapter4/4-7-1.md)
+  * [4.7 RunnableScheduledFuture接口](chapter4/4-7-2.md)
   * [4.8 CompletionService](chapter4/4-8.md)
   * [4.9 Executors得到当前活动的线程数](chapter4/4-9.md)
 * [第5章 并发集合](chapter5.md)
