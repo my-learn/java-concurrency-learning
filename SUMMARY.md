@@ -42,7 +42,7 @@
   * [4.4 ScheduledThreadPoolExecutor类](chapter4/4-4-1.md)
   * [4.5 Executors静态工厂方法](chapter4/4-5.md)
   * [4.6 ThreadPoolExecutor ](chapter4/4-6.md)
-  * [4.7 可以返回结果的线程](chapter4/4-7.md)
+  * [4.7 可以返回结果的线程Future](chapter4/4-7.md)
   * [4.7 ScheduledFuture接口](chapter4/4-7-1.md)
   * [4.7 RunnableScheduledFuture接口](chapter4/4-7-2.md)
   * [4.8 CompletionService](chapter4/4-8.md)
@@ -70,7 +70,6 @@
 * [第8章 实用篇](chapter8.md)
   * [8.1 时间工具类TimeUnit](chapter8/TimeUnit.md)
   * [8.2 volatile](chapter8/volatile.md)
-
 * [第9章 深入篇](chapter9.md)
   * [9.1 指令重排 and 多级存储](chapter9/memory-reordering.md)
   * [9.2 CAS](chapter9/cas.md)
@@ -80,12 +79,4 @@
   * [9.6 executorService停止线程的陷阱](chapter9/executorService-error.md)
 * [附：openjdk 源码下载](openjdk.md)
 * [说明](notice.md)
-
-
-
-
-
-
-
-
 
