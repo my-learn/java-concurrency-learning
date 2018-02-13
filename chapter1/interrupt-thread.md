@@ -1,4 +1,4 @@
-Java的中断机制很容易被人理解为是中断线程的，使线程停止，其实理解不完全对。每一个线程都有一个中断状态，调用线程对象的interrupt方法并不一定中断了正在运行的线程，而仅仅它通知线程在合适的时机中断自己，也即将线程状态改为“中断状态”，改变中断状态后再如何处理就需要用户自己去控制了，比如结束线程、传递异常、忽略中断再继续任务等等
+Java的中断机制很容易被人理解为是中断线程的，使线程停止，其实理解不完全对。每一个线程都有一个中断状态，调用线程对象的interrupt方法并不一定中断了正在运行的线程，而仅仅发出一个中断信号，通知线程在合适的时机中断自己，也即将线程状态改为“中断状态”，改变中断状态后用户可以做后续处理工作，比如结束线程、传递异常、忽略中断再继续任务等等
 
 
 # Thread提供的中断相关的方法
@@ -13,22 +13,21 @@ isInterrupted()和interrupted()方法有一个很大的区别。isInterrupted()�
 当你主动调用了线程实例的interrupt()方法， 就可以用isInterrupted()捕获到。
 
 
-# 响应中断
+# 会检查中断状态并响应的阻塞
 如果一个线程处于了阻塞状态,同时能够响应中断，则在线程检测到中断标识为true时，会在这些阻塞方法调用处抛出InterruptedException异常，并且在抛出异常后立即将线程的中断标别位清除，即重新设置为false。抛出异常是为了线程从阻塞状态醒过来，并在结束线程前让程序员有足够的时间来处理中断请求。
 当前在实际业务代码中，你也可以忽略掉中断异常。
 
-能够响应中断的阻塞线程，比如Thread.sleep、thread.join、可中断的I/O通道、condition.await、BlockingQueue.put等
+能够响应中断的阻塞线程，比如Thread.sleep()、thread.join()、Object.wait()、可中断的I/O通道、condition.await()、BlockingQueue.put()/take()等
 
 synchronized在获锁的过程中是不能被中断的，`reentrantLock.lock()`也不能，但是`reentrantLock.tryLock(long timeout, TimeUnit unit)`方法会在指定时间内获取不到所抛出InterruptedException异常
 
-# 处理不可中断的阻塞
-并非所有的可阻塞方法或者阻塞机制都能相应中断，比如前面提到的synchronized获取锁，还有Object.wait()、tcp通信socket数据传输，I/O操作等，interrupt中断对他们不起任务作用，我们就有必要使用某种机制来中断由于这些代码导致的线程阻塞
+# 不可响应中断的阻塞
+并非所有的可阻塞方法或者阻塞机制都能相应中断，比如前面提到的synchronized获取锁，还tcp通信socket数据传输，I/O操作等，interrupt中断对他们不起任务作用，我们就有必要使用某种机制来中断由于这些代码导致的线程阻塞
 首先`synchronized`获取导致的阻塞无解，除非改成使用`reentrantLock.tryLock(long timeout, TimeUnit unit)`就可中断，
 其次，java提供了socket、I/O上的close方法，该方法会抛出异常就可解除阻塞。
 
 另外，jdk 1.4提供InterruptibleChannel接口、实现该接口的通道是可中断的。
 如果一个线程在调用实现了InterruptibleChannel接口的代码上阻塞，一个线程调用了该阻塞线程的 interrupt 方法，将会导致该通道被关闭，同时已阻塞线程接将会收到ClosedByInterruptException，并且设置已阻塞线程的中断状态。
-
 
 
 # 示例
