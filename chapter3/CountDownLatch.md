@@ -7,7 +7,7 @@ CountDownLatch类的方法
 + await(long timeout, TimeUnit unit)：可以指定等待时间，否则线程被中断
 + countDown()：每个被等待的事件在完成的时候调用，计数器减一
 
-在当前计数到达0之前，await 方法会一直受阻塞，当调用countDown()方法后，内部计数器将减1，当计数器到达0的时候，CountDownLatch对象将唤起所有在awati()方法上等待的线程。
+在当前计数到达0之前，调用await 方法会一直受阻塞，当调用countDown()方法后，内部计数器将减1，当计数器到达0的时候，CountDownLatch对象将唤起所有在awati()方法上等待的线程。
 
 **注意：
 1. 当计数器到达0后，再次执行await将不会有效，因为CountDownLatch的barrier是是不可重用的 
