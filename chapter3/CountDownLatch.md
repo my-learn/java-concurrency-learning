@@ -6,6 +6,7 @@ CountDownLatch类的方法
 + await()：当调用await时候，调用线程处于等待挂起状态，直至计数器变成0再继续
 + await(long timeout, TimeUnit unit)：可以指定等待时间，否则线程被中断
 + countDown()：每个被等待的事件在完成的时候调用，计数器减一
++ getCount()：最好不要使用该方法，特别是for循环时，作为判断条件。docs已经写明了：_This method is typically used for debugging and testing purposes_
 
 在当前计数到达0之前，调用await 方法会一直受阻塞，当调用countDown()方法后，内部计数器将减1，当计数器到达0的时候，CountDownLatch对象将唤起所有在awati()方法上等待的线程。
 
