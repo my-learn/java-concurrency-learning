@@ -33,61 +33,70 @@ synchronized在获锁的过程中是不能被中断的，`reentrantLock.lock()`�
 # 示例
 前面说了很多关于中断的东西，还是来看看代码吧
 
-Tread的sleep可以响应中断
+Thread的sleep可以响应中断
 ```java
 public class InterruptTest {
 	public static void main(String[] args) throws Exception {
+		MyThread myThread = new MyThread("myThread");
+		myThread.start();
 
-		Thread t = new Thread() {
-			@Override
-			public void run() {
-				try {
-					sleep(50000); // 延迟50秒
-				} catch (InterruptedException e) {
-					System.out.println("捕获到InterruptedException异常，异常信息：" + e.getMessage());
-				}
+		TimeUnit.SECONDS.sleep(2);
+
+		myThread.interrupt();
+		System.out.printf("Thread:%s interrupted status is %s", myThread.getName(), myThread.isInterrupted());
+	}
+
+	static class MyThread extends Thread {
+		public MyThread(String name) {
+			super(name);
+		}
+
+		@Override
+		public void run() {
+			// 中断被阻塞状态（sleep、wait、join 等状态）的线程，会抛出异常 InterruptedException
+			// 抛出异常 InterruptedException 前，JVM 会先将中断状态重置为默认状态 false
+			try {
+				TimeUnit.SECONDS.sleep(10);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
-		};
-		t.start();
-		System.out.println("在50秒之内按任意键中断线程!");
-		System.in.read();
-		t.interrupt();
-		t.join();
-		System.out.println("线程已经退出!");
+		}
 	}
 }
 ```
+控制打印false，同时打印错误堆栈
+
 
 不能中断处于非阻塞状态的线程
+将前面示例的run()方法改成
 ```java
-public class Test {
-     
-    public static void main(String[] args) throws IOException  {
-        Test test = new Test();
-        MyThread thread = test.new MyThread();
-        thread.start();
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-             
-        }
-        thread.interrupt();
-    } 
-     
-    class MyThread extends Thread{
-        @Override
-        public void run() {
-            int i = 0;
-            while(i<Integer.MAX_VALUE){
-                System.out.println(i+" while循环");
-                i++;
-            }
-        }
+@Override
+public void run() {
+	// 线程一直在运行状态，没有停止或者阻塞等
+	// 调用了 interrupt() 方法，中断状态置为 true，但不会影响线程的继续运行
+	while (true) {
+
+	}
+}
+```
+控制打印true，同时程序不会终止。
+
+
+将上面示例的run()方法改成
+```java
+@Override
+public void run() {
+    int i = 0;
+    while(i<Integer.MAX_VALUE){
+        System.out.println(i+" while循环");
+        i++;
     }
 }
 ```
-运行该程序会发现，while循环会一直运行直到变量i的值超出Integer.MAX_VALUE。所以说直接调用interrupt方法不能中断正在运行中的线程。
-但是如果配合isInterrupted()能够中断正在运行的线程，因为调用interrupt方法相当于将中断标志位置为true，那么可以通过调用isInterrupted()判断中断标志是否被置位来中断线程的执行。上面的代码改成：
+效果更明显了，主线程调用了interrupt，控制台还是不停的打印。
+while循环会一直运行直到变量i的值超出Integer.MAX_VALUE。所以说直接调用interrupt方法不能中断正在运行中的线程。
+
+但是如果配合isInterrupted()能够中断正在运行的线程，因为调用interrupt方法相当于将中断标志位置为true，那么可以通过调用isInterrupted()判断中断标志是否被置位来中断线程的执行。上面的run()改成：
 ```java
 public class Test {
 	public static void main(String[] args) throws IOException {
@@ -149,3 +158,6 @@ public class Test {
 }
 ```
 同样的也能实现中断线程
+
+最佳方案就是!isStop和!isInterrupted()联合使用，因为类似调用sleep()方法处于阻塞状态下的线程无法通过!isStop终止。
+
